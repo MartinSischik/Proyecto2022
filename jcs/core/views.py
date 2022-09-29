@@ -5,4 +5,5 @@ from django.http import request
 # Create your views here.
 
 def Inicio(request):
-    return render(request,'darkpan-1.0.0/index.html')
+    return render(request,'template\empty.html')
+#C:\Users\Usuario\Desktop\Programacion\proyecto2022\jcs\template\index.html

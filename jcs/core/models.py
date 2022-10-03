@@ -30,7 +30,7 @@ class Employee ( models.Model ) :
 class Grano ( models.Model ) :
     nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     variedad = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Variedad ' )
-    Kilogramos = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    kilogramos = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     
     def __str__(self):
         return self.names
@@ -40,4 +40,27 @@ class Grano ( models.Model ) :
         verbose_name_plural = 'Semillas' 
         db_table = 'Grano'
         ordering = ['id']
+
+class Unidades (models.Model):
+    names = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    def __str__(self):
+        return self.name
         
+    class Meta:
+        verbose_name = 'Unidad'
+        verbose_name_plural = 'Unidades' 
+        ordering = ['id']
+class Quimico ( models.Model ) :
+    unidades =models.ForeignKey(Unidades,on_delete=models.PROTECT)
+    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    Ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Variedad ' )
+    cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    
+    def __str__(self):
+        return self.names
+
+    class Meta:
+        verbose_name = 'Quimico'
+        verbose_name_plural = 'Quimicos' 
+        db_table = 'Quimicos'
+        ordering = ['id']

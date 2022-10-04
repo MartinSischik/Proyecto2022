@@ -5,5 +5,10 @@ from django.http import request
 # Create your views here.
 
 def Inicio(request):
-    return render(request,'template\empty.html')
-#C:\Users\Usuario\Desktop\Programacion\proyecto2022\jcs\template\index.html
+    return render(request,'templates\index.html')
+
+def vacio(request):
+    return render(request,'templates\empty.html')
+
+def stock(request):
+    return render(request,'templates\Stock.html')

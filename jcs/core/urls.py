@@ -8,4 +8,5 @@ urlpatterns = [
     path('inicio/', Inicio),
     path('vacio/', vacio),
     path('stock/', stock),
+    
 ]

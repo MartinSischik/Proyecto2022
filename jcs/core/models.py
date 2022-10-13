@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Type (models.Model):
-    names = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    name = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     def __str__(self):
         return self.name
         
@@ -33,7 +33,7 @@ class Grano ( models.Model ) :
     kilogramos = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     
     def __str__(self):
-        return self.names
+        return self.nombre
 
     class Meta:
         verbose_name = 'Semilla'
@@ -42,7 +42,7 @@ class Grano ( models.Model ) :
         ordering = ['id']
 
 class Unidades (models.Model):
-    names = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    name = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     def __str__(self):
         return self.name
         
@@ -57,7 +57,7 @@ class Quimico ( models.Model ) :
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     
     def __str__(self):
-        return self.names
+        return self.unidades
 
     class Meta:
         verbose_name = 'Quimico'

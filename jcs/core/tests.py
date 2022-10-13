@@ -24,5 +24,5 @@ from core.models import Type
 # t=Type.objects.get(id=1)
 # t.delete()
 
-obj=Type.objects.filter(name__icontains='tiempo').count()
-print(obj)
+# obj=Type.objects.filter(name__icontains='tiempo').count()
+# print(obj)

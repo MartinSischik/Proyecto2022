@@ -2,7 +2,8 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.http import request
-from core.models import Quimico
+from core.models import Quimico, Unidades
+from core.models import Grano
 # Create your views here.
 
 def Inicio(request):
@@ -14,4 +15,16 @@ def vacio(request):
 def stock(request):
 
     listatabla1=Quimico.objects.all()
-    return render(request,'templates\Stock.html',{"cod_producto":request.session.get("id"),"listatabla1":listatabla1})
+    listatabla2=Grano.objects.all()
+    return render(request,'templates\Stock.html',{"listatabla1":listatabla1,"listatabla2":listatabla2})
+
+def Cargastock(request):
+
+    listatabla1=Quimico.objects.all()
+    listatabla2=Unidades.objects.all()
+    return render(request,'templates\CargaStock.html',{"listatabla1":listatabla1,"listatabla2":listatabla2})
+
+def CargaGrano(request):
+
+    listatabla1=Grano.objects.all()
+    return render(request,'templates\CargaGrano.html',{"listatabla1":listatabla1})

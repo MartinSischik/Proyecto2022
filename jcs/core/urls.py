@@ -1,12 +1,13 @@
+
 from django.urls import path
 
-from core.views import Inicio
-from core.views import vacio
-from core.views import stock
+from core import views
+
 urlpatterns = [
 
-    path('inicio/', Inicio),
-    path('vacio/', vacio),
-    path('stock/', stock),
-    
+    path('inicio/',views.Inicio, name='Inicio'),
+    path('vacio/',views.vacio, name='vacio'),
+    path('stock/',views.stock, name='stock'),
+    path('Cargastock/',views.Cargastock, name='Cargastock'),
+    path('CargaGrano/',views.CargaGrano, name='CargaGrano'),
 ]

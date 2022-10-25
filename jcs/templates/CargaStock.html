@@ -20,6 +20,8 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{%static 'assets/images/favicon.png'%}" />
     <script src="https://kit.fontawesome.com/5fe4c3f9ce.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -365,94 +367,51 @@
         <div class="main-panel">
               <div class="content-wrapper">
                 <div class="page-header">
-                  <h3 class="page-title"> Stock </h3>
+                  <h3 class="page-title">  </h3>
                 </div>
                 <div class="row">
-                <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Agroquimicos</h4>
-                    
-                    <a type="button" href="{% url 'Cargastock'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Agroquimico</a>
-                    <div class="row">
-                      <div class="col-12">
-                      <div class="text-secondary">
-                        <div class="card-body table-responsive">  
-                              <table id="tabla" class="table" >
-                            <thead>
-                              <tr>
-                                <th>Id</th>
-                                <th>Nombre </th>
-                                <th>Descripcion </th>
-                                <th>Droga </th>
-                                <th>Cantidad</th>
-                                <th>Unidades </th>
-                                <th>Opciones </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for lista in listatabla1 %}
-                              <tr>
-                                <td> {{lista.id}} </td>
-                                <td>{{lista.nombre}}</td>
-                                <td>{{lista.descripcion}}</td>
-                                <td> {{lista.ingrediente}}</td>
-                                <td> {{lista.cantidad}}</td>
-                                <td> {{lista.unidades}}</td>
-                                <td>
-                                <button type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i>
-                                <button type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i>
-                                </td>
-                              </tr>
-                              {% endfor %}
-                            </tbody>
-                            </table>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-                </div>
-                <div class="col-12 grid-margin stretch-card">
-                  <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-title">Granos</h4>
-                      <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
-                      <div class="row">
-                        <div class="col-12">
-                          <div class=" card-body table-responsive">  
-                                <table id="tabla1" class="table" >
-                              <thead>
-                                <tr>
-                                  <th>Id</th>
-                                  <th>Nombre </th>
-                                  <th>Variedad </th>
-                                  <th>Cantidad Kg</th>
-                                  <th>Opciones </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {% for lista in listatabla2 %}
-                                <tr>
-                                  <td> {{lista.id}} </td>
-                                  <td>{{lista.nombre}}</td>
-                                  <td> {{lista.variedad}}</td>
-                                  <td> {{lista.kilogramos}} Kg</td>
-                                  <td>
-                                  <button type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i>
-                                  <button type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i>
-                                  </td>
-                                </tr>
-                                {% endfor %}
-                              </tbody>
-                              </table>
+                  <div class="col-12 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Agroquimico</h4>
+                        <p class="card-description">  </p>
+                        <form class="forms-sample">
+                          <div class="form-group">
+                            <label for="exampleInputUsername1">Nombre</label>
+                            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Nombre">
                           </div>
-                        </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Ingrediente Activo</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ingrediente Activo">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Cantidad</label>
+                            <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Cantidad">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputConfirmPassword1">Descripcion</label>
+                            <input type="text" class="form-control" id="exampleInputConfirmPassword1" placeholder="Descripcion">
+                          </div>
+                          <div class="form-group">
+                            <label for="Units">Unidades</label>
+                            <select class="form-control" id="">
+                              {% for lista in listatabla2 %}
+                              <option class="dropdown-item" data-value="{{lista.id}}">{{lista.name}}</option>
+                              {% endfor %}
+                            </select> 
+                          </div>
+                          <!-- <div class="form-check form-check-flat form-check-primary">
+                            <label class="form-check-label">
+                              <input type="checkbox" class="form-check-input"> Remember me <i class="input-helper"></i></label>
+                          </div> -->
+                          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                          <button class="btn btn-dark">Cancel</button>
+                        </form>
                       </div>
                     </div>
                   </div>
-                </div>
+                  </div>
+                
               </div>
 
 
@@ -501,11 +460,10 @@
         $('#tabla').DataTable();
       });
       </script>
-      <script>
-        $(document).ready(function () {
-          $('#tabla1').DataTable();
-        });
-        </script>
+    <script>
+      $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();});
+    </script>
     <!-- End custom js for this page -->
   </body>
 </html>

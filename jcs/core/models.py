@@ -52,7 +52,7 @@ class Unidades (models.Model):
         ordering = ['id']
 
 class CateQuimico (models.Model):
-    CategoriaQ = models.CharField ( max_length = 150 , verbose_name = ' CategoriaQ ',default="no_description", null=True)
+    name = models.CharField ( max_length = 150 , verbose_name = ' CategoriaQ ', null=True)
     def __str__(self):
         return self.name
         
@@ -61,12 +61,11 @@ class CateQuimico (models.Model):
         verbose_name_plural = 'Categorias' 
         ordering = ['id']
 class Quimico ( models.Model ) :
-    Categoria =models.ForeignKey(CateQuimico,on_delete=models.PROTECT,null=True)
-    unidades =models.ForeignKey(Unidades,on_delete=models.PROTECT)
-    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
-    ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Variedad ' )
+    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombre ' )
+    categoria =models.ForeignKey(CateQuimico,on_delete=models.PROTECT,null=True)
+    ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ingrediente Activo ' )
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
-    
+    unidades =models.ForeignKey(Unidades,on_delete=models.PROTECT,null=True)
     def __str__(self):
         return self.unidades
 
@@ -74,4 +73,19 @@ class Quimico ( models.Model ) :
         verbose_name = 'Quimico'
         verbose_name_plural = 'Quimicos' 
         db_table = 'Quimicos'
+        ordering = ['id']
+
+class Parcelas ( models.Model ) :
+    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    ubicacion = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ubicacion ' )
+    hectareas = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    trabajos = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    def __str__(self):
+        return self.unidades
+
+    class Meta:
+        verbose_name = 'Parcela'
+        verbose_name_plural = 'Parcelas' 
+        db_table = 'Parcelas'
         ordering = ['id']

@@ -11,4 +11,5 @@ urlpatterns = [
     path('Cargastock/add/',Cargastock.as_view(), name='Cargastock'),
     path('CargaGrano/',views.CargaGrano, name='CargaGrano'),
     path('CargaCateQui/add/',CatQuimiCreateview.as_view(), name='CargaCateQui'),
+    path('CatQuimiEditview/edit/<int:pk>/',CatQuimiEditview.as_view(), name='CatQuimiEditview'),
 ]

@@ -32,7 +32,7 @@
                   <tr>
                     <td> {{lista.id}} </td>
                     <td>{{lista.nombre}}</td>
-                    <td>{{lista.descripcion}}</td>
+                    <td>{{lista.categoria}}</td>
                     <td> {{lista.ingrediente}}</td>
                     <td> {{lista.cantidad}}</td>
                     <td> {{lista.unidades}}</td>
@@ -94,7 +94,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Categoria de Quimicos</h4>
-          <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
+          <a type="button" href="{% url 'CargaCateQui'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
           <div class="row">
             <div class="col-12">
               <div class=" card-body table-responsive">  
@@ -111,8 +111,8 @@
                       <td> {{lista.id}} </td>
                       <td>{{lista.name}}</td>
                       <td>
-                      <button type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i>
-                      <button type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i>
+                      <a href="{% url 'CatQuimiEditview' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                      <a type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}

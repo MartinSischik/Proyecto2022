@@ -10,15 +10,14 @@
         <div class="card">
           <div class="card-body">
             {% csrf_token %}
-            <h4 class="card-title"> <i class="mdi mdi-plus"></i>Crear Categoria de Agroquimico</h4>
+            <h4 class="card-title"> <i class="mdi mdi-plus"></i> {{page_title}} </h4>
             <p class="card-description">  </p>
             <form class="forms-sample">
               <div class="form-group">
-                <label for="exampleInputUsername1">Nombre de la nueva categoria</label>
+                <label for="exampleInputUsername1"></label>
                 {{ form.name }}
-                <!-- <input type="text" class="form-control" id="Categoria" placeholder="Categoria"> -->
               </div>
-              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <button type="submit" class="btn btn-primary mr-2">{{accion}}</button>
               <button class="btn btn-dark">Cancel</button>
             </form>
           </div>

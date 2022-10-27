@@ -11,15 +11,17 @@
           <div class="card-body">
             {% csrf_token %}
             <h4 class="card-title"> <i class="mdi mdi-plus"></i> {{page_title}} </h4>
-            <p class="card-description">  </p>
-            <form class="forms-sample">
-              <div class="form-group">
-                <label for="exampleInputUsername1"></label>
-                {{ form.name }}
-              </div>
+              {%for field in form.visible_fields %}
+                
+                <div class="form-group">
+                  <label for="exampleInputUsername1">{{field.label}}</label>
+                    {{ field }}
+                </div>
+              {% endfor %}
+              
               <button type="submit" class="btn btn-primary mr-2">{{accion}}</button>
               <button class="btn btn-dark">Cancel</button>
-            </form>
+            
           </div>
         </div>
       </div>

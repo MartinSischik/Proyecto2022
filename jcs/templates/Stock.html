@@ -4,52 +4,97 @@
     <div class="page-header">
       <h3 class="page-title"> Stock </h3>
     </div>
+    
     <div class="row">
-    <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Agroquimicos</h4>
-        
-        <a type="button" href="{% url 'Cargastock'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Agroquimico</a>
-        <div class="row">
-          <div class="col-12">
-          <div class="text-secondary">
-            <div class="card-body table-responsive">  
-                  <table id="tabla" class="table" >
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre </th>
-                    <th>Descripcion </th>
-                    <th>Droga </th>
-                    <th>Cantidad</th>
-                    <th>Unidades </th>
-                    <th>Opciones </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for lista in listatabla1 %}
-                  <tr>
-                    <td> {{lista.id}} </td>
-                    <td>{{lista.nombre}}</td>
-                    <td>{{lista.categoria}}</td>
-                    <td> {{lista.ingrediente}}</td>
-                    <td> {{lista.cantidad}}</td>
-                    <td> {{lista.unidades}}</td>
-                    <td>
-                    <button type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i>
-                    <button type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                </table>
+      <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Parcelas</h4>
+            <a type="button" href="{% url 'CargaParcela'  %}" class="btn btn-outline-secondary btn-fw">Nueva Parcela</a>
+            <div class="row">
+              <div class="col-12">
+                <div class="text-secondary">
+                  <div class="card-body table-responsive">  
+                        <table id="tabla1" class="table" >
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Nombre </th>
+                          <th>Ubicacion </th>
+                          <th>Hectareas </th>
+                          <th>Trabbajos realizados</th>
+                          <th>Gastos </th>
+                          <th>Opciones </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for lista in listatabla4 %}
+                        <tr>
+                          <td> {{lista.id}} </td>
+                          <td>{{lista.nombre}}</td>
+                          <td>{{lista.ubicacion}}</td>
+                          <td> {{lista.hectareas}}</td>
+                          <td> {{lista.trabajos}}</td>
+                          <td> {{lista.gasto}}</td>
+                          <td>
+                            <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="{% url 'DeleteParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-12   grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Agroquimicos</h4>
+          <a type="button" href="{% url 'CargaQuimico'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Agroquimico</a>
+          <div class="row">
+            <div class="col-12">
+            <div class="text-secondary">
+              <div class="card-body table-responsive">  
+                    <table id="tabla2" class="table" >
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nombre </th>
+                      <th>Categoria </th>
+                      <th>Droga </th>
+                      <th>Cantidad</th>
+                      <th>Unidades </th>
+                      <th>Opciones </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for lista in listatabla1 %}
+                    <tr>
+                      <td> {{lista.id}} </td>
+                      <td>{{lista.nombre}}</td>
+                      <td>{{lista.categoria}}</td>
+                      <td> {{lista.ingrediente}}</td>
+                      <td> {{lista.cantidad}}</td>
+                      <td> {{lista.unidades}}</td>
+                      <td>
+                        <a href="{% url 'EditQuimico' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="{% url 'DeleteQuimico' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <div class="col-12 grid-margin stretch-card">
       <div class="card">
@@ -59,12 +104,13 @@
           <div class="row">
             <div class="col-12">
               <div class=" card-body table-responsive">  
-                    <table id="tabla1" class="table" >
+                    <table id="tabla3" class="table" >
                   <thead>
                     <tr>
                       <th>Id</th>
                       <th>Nombre </th>
                       <th>Variedad </th>
+                      <th>Procedencia</th>
                       <th>Cantidad Kg</th>
                       <th>Opciones </th>
                     </tr>
@@ -75,10 +121,11 @@
                       <td> {{lista.id}} </td>
                       <td>{{lista.nombre}}</td>
                       <td> {{lista.variedad}}</td>
+                      <td> {{lista.procedencia}} Kg</td>
                       <td> {{lista.kilogramos}} Kg</td>
                       <td>
-                      <button type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i>
-                      <button type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i>
+                        <a href="{% url 'EditGrano' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a  href="{% url 'DeleteGrano' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
@@ -90,29 +137,31 @@
         </div>
       </div>
     </div>
-    <div class="col-12 grid-margin stretch-card">
+    
+    <div class="col-6 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Categoria de Quimicos</h4>
-          <a type="button" href="{% url 'CargaCateQui'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
+          <a type="button" href="{% url 'CargaCateQui'  %}" class="btn btn-outline-secondary btn-fw">Nueva Categoria</a>
           <div class="row">
             <div class="col-12">
               <div class=" card-body table-responsive">  
-                    <table id="tabla1" class="table" >
+                    <table id="tabla4" class="table" >
                   <thead>
                     <tr>
                       <th>Id</th>
                       <th>Nombre </th>
+                      <th>Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for lista in listatabla3 %}
                     <tr>
                       <td> {{lista.id}} </td>
-                      <td>{{lista.name}}</td>
+                      <td>{{lista.nombre}}</td>
                       <td>
                       <a href="{% url 'CatQuimiEditview' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                      <a type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                      <a href="{% url 'DeleteQuimiCate' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
@@ -126,3 +175,4 @@
     </div>
   </div>
 {% endblock %}
+

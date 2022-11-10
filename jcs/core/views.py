@@ -8,6 +8,9 @@ from core.models import CateQuimico, Parcelas, Quimico, Unidades,Employee,CateQu
 from core.models import Grano
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def Inicio(request):
@@ -16,13 +19,15 @@ def Inicio(request):
 def home(request):
     return render(request,'templates\home.html')
 
-
+@login_required
+# este se puede usar en cualquier Request
 def stock(request):
+    
     listatabla2=Grano.objects.all()
     listatabla1=Quimico.objects.all()
     listatabla3=CateQuimico.objects.all()
     listatabla4=Parcelas.objects.all()
-
+    
     pagina='templates\stock1.html'
     return render(request,'templates\Stock.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"listatabla4":listatabla4, "pagina":pagina})
 
@@ -31,6 +36,12 @@ class CargaQuimico(CreateView):
     form_class = QuimicoForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Nuevo Stock de Agroquimico'

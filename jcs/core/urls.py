@@ -3,11 +3,13 @@ from django.urls import path
 
 from core import views
 from core.views import*
+from login.views import LoginFormView
 urlpatterns = [
 
     path('inicio/',views.Inicio, name='Inicio'),
     path('home/',views.home, name='home'),
     path('stock/',views.stock, name='stock'),
+    path('login/',LoginFormView.as_view(), name='login'),
     path('CargaQuimico/add/',CargaQuimico.as_view(), name='CargaQuimico'),
     path('EditQuimico/edit/<int:pk>/',EditQuimico.as_view(), name='EditQuimico'),
     path('DeleteQuimico/delete/<int:pk>/',DeleteQuimico.as_view(), name='DeleteQuimico'),

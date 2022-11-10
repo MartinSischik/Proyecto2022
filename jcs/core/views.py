@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 # Create your views here.
 
 def Inicio(request):
-    return render(request,'templates\index.html')
+    return render(request,'templates\login.html')
 
 def home(request):
     return render(request,'templates\home.html')

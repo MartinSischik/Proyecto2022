@@ -3,8 +3,8 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.http import request
-from core.forms import CateQuimicoForm, GranoForm, ParcelaForm, QuimicoForm
-from core.models import CateQuimico, Parcelas, Quimico, Unidades,Employee,CateQuimico
+from core.forms import CateQuimicoForm, GranoForm, ParcelaForm, QuimicoForm,CamionForm,EntregasForm
+from core.models import CateQuimico, Parcelas, Quimico, Unidades,Employee,CateQuimico,camion,Cliente,Entregas
 from core.models import Grano
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView
 from django.urls import reverse_lazy
@@ -53,6 +53,12 @@ class EditQuimico(UpdateView):
     form_class = QuimicoForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+    
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Editar Stock de Agroquimico'
@@ -64,6 +70,10 @@ class DeleteQuimico(DeleteView):
     form_class = QuimicoForm
     template_name = 'templates\eliminar.html'
     success_url = reverse_lazy('stock')
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Agroquimico'
@@ -76,6 +86,12 @@ class CargaGrano(CreateView):
     form_class = GranoForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Nuevo Stock de Semilla'
@@ -87,6 +103,12 @@ class EditGrano(UpdateView):
     form_class = GranoForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Editar Stock de Semilla'
@@ -98,6 +120,12 @@ class DeleteGrano(DeleteView):
     form_class = GranoForm
     template_name = 'templates\eliminar.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Semilla'
@@ -110,6 +138,11 @@ class CatQuimiCreateview(CreateView):
     form_class = CateQuimicoForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+    
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
@@ -123,6 +156,11 @@ class CatQuimiEditview(UpdateView):
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
 
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Editar Categoria de Agroquimico'
@@ -134,6 +172,12 @@ class DeleteQuimiCate(DeleteView):
     form_class = CateQuimicoForm
     template_name = 'templates\eliminar.html'
     success_url = reverse_lazy('stock')
+    
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Categoria'
@@ -146,6 +190,12 @@ class CargaParcela(CreateView):
     form_class = ParcelaForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Nuevo Parcela'
@@ -157,6 +207,12 @@ class EditParcela(UpdateView):
     form_class = ParcelaForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Editar Parcela'
@@ -168,6 +224,12 @@ class DeleteParcela(DeleteView):
     form_class = ParcelaForm
     template_name = 'templates\eliminar.html'
     success_url = reverse_lazy('stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+        
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Parcela'
@@ -175,11 +237,51 @@ class DeleteParcela(DeleteView):
         contexto['list_url']=reverse_lazy('stock')
         return contexto
 
+def Entregas_Stock(request):
+    
+    listatabla1=Grano.objects.all()
+    listatabla2=camion.objects.all()
+    listatabla3=Cliente.objects.all()
+    # listatabla4=Parcelas.objects.all()
+    pagina='templates\stock1.html'
+    return render(request,'templates\stock1.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"pagina":pagina})
+    # 
+    # "listatabla4":listatabla4,
+    
 
+class CargaCamion(CreateView):
+    model = camion
+    form_class = CamionForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('Entregas_Stock')
 
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Nuevo Camion'
+        contexto['accion']='Crear'
+        return contexto
 
+class CargaEntregas(CreateView):
+    model = Entregas
+    form_class = EntregasForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('Entregas_Stock')
 
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Nueva Entrega'
+        contexto['accion']='Crear'
+        return contexto
 
 
 

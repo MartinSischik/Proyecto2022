@@ -83,10 +83,92 @@ class Parcelas ( models.Model ) :
     trabajos = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
-        return self.unidades
+        return self.nombre
 
     class Meta:
         verbose_name = 'Parcela'
         verbose_name_plural = 'Parcelas' 
         db_table = 'Parcelas'
         ordering = ['id']
+
+class tipo_trabajo (models.Model):
+    name = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    def __str__(self):
+        return self.name
+        
+    class Meta:
+        verbose_name = 'Tipo'
+        verbose_name_plural = 'Tipos' 
+        ordering = ['id']
+
+class Trabajo ( models.Model ) :
+    parcela =models.ForeignKey(Parcelas,on_delete=models.PROTECT,null=True)
+    tipo =models.ForeignKey(tipo_trabajo,on_delete=models.PROTECT,null=True)
+    hectareas = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    descripcion = models.CharField ( max_length = 50 , unique = True , verbose_name = ' descripcion ' )
+    gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    def __str__(self):
+        return self.tipo
+
+    class Meta:
+        verbose_name = 'Trabajo'
+        verbose_name_plural = 'Trabajos' 
+        db_table = 'Trabajos'
+        ordering = ['id']
+
+
+class Trabajo_stock ( models.Model ) :
+    trabajo_id =models.ForeignKey(Trabajo,on_delete=models.PROTECT,null=True)
+    quimico_id =models.ForeignKey(Quimico,on_delete=models.PROTECT,null=True)
+    cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    def __str__(self):
+        return self.trabajo_id
+
+    class Meta:
+        verbose_name = 'Trabajo Stock'
+        verbose_name_plural = 'Trabajo Stock' 
+        db_table = 'Trabajo Stock'
+        ordering = ['id']
+
+class camion ( models.Model ) :
+    nombre_conductor = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    chapa = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Chapas ' )
+    cedula = models.CharField ( max_length = 150 , unique = True , verbose_name = ' cedula ' )
+    def __str__(self):
+        return self.nombre_conductor
+
+    class Meta:
+        verbose_name = 'Camion'
+        verbose_name_plural = 'Camions' 
+        db_table = 'Camions'
+        ordering = ['id']
+    
+class Cliente ( models.Model ) :
+    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    Telefono = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Telefonos ' )
+    Ruc = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Ruc ' )
+    email = models.CharField ( max_length = 150 , unique = True , verbose_name = ' email ' )
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes' 
+        db_table = 'Clientes'
+        ordering = ['id']    
+        
+class Entregas ( models.Model ) :
+    camion_id =models.ForeignKey(camion,on_delete=models.PROTECT,null=True)
+    grano_id =models.ForeignKey(Grano,on_delete=models.PROTECT,null=True)
+    cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    cliente = models.ForeignKey(Cliente,on_delete=models.PROTECT,null=True)
+    def __str__(self):
+        return self.nombre_conductor
+
+    class Meta:
+        verbose_name = 'Entregas'
+        verbose_name_plural = 'Entregas' 
+        db_table = 'Entregas'
+        ordering = ['id']
+    

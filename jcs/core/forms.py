@@ -1,6 +1,6 @@
 from django.forms import*
 
-from core.models import CateQuimico, Grano, Parcelas, Quimico
+from core.models import CateQuimico, Grano, Parcelas, Quimico,camion,Entregas
 
 class CateQuimicoForm(ModelForm):
     class Meta:
@@ -142,9 +142,72 @@ class ParcelaForm (ModelForm):
             
         }
 
+class CamionForm (ModelForm):
+    class Meta:
+        model = camion
+        fields = '__all__'
+        labels = {
+                
+                
+            }
+        widgets = {
+            'nombre_conductor': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Nombre',
+                        
+                }
+            ),
+            'chapa': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'chapa',
+                        
+                }
+            ),
+            'cedula': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'cedula',
+                        
+                }
+            ),
+            
+        }
+        
 
-
-
+class EntregasForm (ModelForm):
+    class Meta:
+        model = Entregas
+        fields = '__all__'
+        labels = {
+                
+            }
+        widgets = {
+            'camion_id': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Nombre',
+                        
+                }
+            ),
+            'grano_id': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Ubicacion',
+                        
+                }
+            ),
+            
+            'cantidad': NumberInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Unidades de medida',
+                        
+                }
+            ),
+            'cliente': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Cantidad',
+                        
+                }
+            )
+            
+        }
 
 
 

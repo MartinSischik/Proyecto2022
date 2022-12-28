@@ -10,6 +10,7 @@ urlpatterns = [
     path('inicio/',views.Inicio, name='Inicio'),
     path('home/',views.home, name='home'),
     path('stock/',views.stock, name='stock'),
+    path('Entregas_Stock/',views.Entregas_Stock, name='Entregas_Stock'),
     path('login/',LoginFormView.as_view(), name='login'),
     path('logout/',LogoutView.as_view(next_page='login'), name='logout'),
     path('CargaQuimico/add/',CargaQuimico.as_view(), name='CargaQuimico'),
@@ -24,4 +25,6 @@ urlpatterns = [
     path('CargaParcela/add/',CargaParcela.as_view(), name='CargaParcela'),
     path('EditParcela/edit/<int:pk>/',EditParcela.as_view(), name='EditParcela'),
     path('DeleteParcela/delete/<int:pk>/',DeleteParcela.as_view(), name='DeleteParcela'),
+    path('CargaCamion/add/',CargaCamion.as_view(), name='CargaCamion'),
+    path('CargaEntregas/add/',CargaEntregas.as_view(), name='CargaEntregas'),
 ]

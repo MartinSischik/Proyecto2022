@@ -26,5 +26,9 @@ urlpatterns = [
     path('EditParcela/edit/<int:pk>/',EditParcela.as_view(), name='EditParcela'),
     path('DeleteParcela/delete/<int:pk>/',DeleteParcela.as_view(), name='DeleteParcela'),
     path('CargaCamion/add/',CargaCamion.as_view(), name='CargaCamion'),
+    path('EditCamion/edit/<int:pk>/',EditCamion.as_view(), name='EditCamion'),
+    path('DeleteCamion/delete/<int:pk>/',DeleteCamion.as_view(), name='DeleteCamion'),
     path('CargaEntregas/add/',CargaEntregas.as_view(), name='CargaEntregas'),
+    path('EditEntregas/edit/<int:pk>/',EditEntregas.as_view(), name='EditEntregas'),
+    path('DeleteEntregas/delete/<int:pk>/',DeleteEntregas.as_view(), name='DeleteEntregas'),
 ]

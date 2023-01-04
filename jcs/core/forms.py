@@ -151,21 +151,23 @@ class CamionForm (ModelForm):
                 
             }
         widgets = {
-            'nombre_conductor': TextInput(
+            'nombre': TextInput(
                 attrs= {'class':'form-control',
                         'placeholder':'Nombre',
+                        'name':'Nombre'
                         
                 }
             ),
             'chapa': TextInput(
                 attrs= {'class':'form-control',
-                        'placeholder':'chapa',
+                        'placeholder':'Chapa',
+                        
                         
                 }
             ),
-            'cedula': TextInput(
+            'cedula': NumberInput(
                 attrs= {'class':'form-control',
-                        'placeholder':'cedula',
+                        'placeholder':'Cedula',
                         
                 }
             ),
@@ -181,13 +183,13 @@ class EntregasForm (ModelForm):
                 
             }
         widgets = {
-            'camion_id': TextInput(
+            'camion_id': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Nombre',
                         
                 }
             ),
-            'grano_id': TextInput(
+            'grano_id': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Ubicacion',
                         
@@ -200,7 +202,7 @@ class EntregasForm (ModelForm):
                         
                 }
             ),
-            'cliente': TextInput(
+            'cliente': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Cantidad',
                         

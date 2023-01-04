@@ -51,7 +51,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Camion</h4>
-          <a type="button" href="{% url 'CargaCamion'  %}" class="btn btn-outline-secondary btn-fw">Nueva Categoria</a>
+          <a type="button" href="{% url 'CargaCamion'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Camion</a>
           <div class="row">
             <div class="col-12">
               <div class=" card-body table-responsive">  
@@ -60,6 +60,8 @@
                     <tr>
                       <th>Id</th>
                       <th>Nombre </th>
+                      <th>Chapa</th>
+                      <th>Cedula</th>
                       <th>Opciones</th>
                     </tr>
                   </thead>
@@ -67,10 +69,12 @@
                     {% for lista in listatabla2 %}
                     <tr>
                       <td> {{lista.id}} </td>
-                      <td>{{lista.nombre_conductor}}</td>
+                      <td>{{lista.nombre}}</td>
+                      <td>{{lista.chapa}}</td>
+                      <td>{{lista.cedula}}</td>
                       <td>
-                      <a href="" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                      <a href="" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'EditCamion' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a  href="{% url 'DeleteCamion' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
@@ -89,7 +93,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Entregas</h4>
-        <a type="button" href="{% url 'CargaEntregas'  %}" class="btn btn-outline-secondary btn-fw">Nueva Categoria</a>
+        <a type="button" href="{% url 'CargaEntregas'  %}" class="btn btn-outline-secondary btn-fw">Nueva Entrega</a>
         <div class="row">
           <div class="col-12">
             <div class=" card-body table-responsive">  
@@ -97,7 +101,8 @@
                 <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Nombre </th>
+                    <th>Cliente </th>
+                    <th>Producto </th>
                     <th>Opciones</th>
                   </tr>
                 </thead>
@@ -105,10 +110,12 @@
                   {% for lista in listatabla3 %}
                   <tr>
                     <td> {{lista.id}} </td>
+                    
                     <td>{{lista.nombre}}</td>
+                    <td> {{lista.grano_id}} </td>
                     <td>
-                    <a href="" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                    <a href="" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                      <a href="{% url 'EditEntregas' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                      <a  href="{% url 'DeleteEntregas' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                     </td>
                   </tr>
                   {% endfor %}

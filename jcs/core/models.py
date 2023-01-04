@@ -102,7 +102,7 @@ class tipo_trabajo (models.Model):
         ordering = ['id']
 
 class Trabajo ( models.Model ) :
-    parcela =models.ForeignKey(Parcelas,on_delete=models.PROTECT,null=True)
+    nombre =models.ForeignKey(Parcelas,on_delete=models.PROTECT,null=True)
     tipo =models.ForeignKey(tipo_trabajo,on_delete=models.PROTECT,null=True)
     hectareas = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     descripcion = models.CharField ( max_length = 50 , unique = True , verbose_name = ' descripcion ' )
@@ -132,11 +132,11 @@ class Trabajo_stock ( models.Model ) :
         ordering = ['id']
 
 class camion ( models.Model ) :
-    nombre_conductor = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
-    chapa = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Chapas ' )
-    cedula = models.CharField ( max_length = 150 , unique = True , verbose_name = ' cedula ' )
+    nombre = models.CharField ( max_length = 40 , verbose_name = ' Nombres ' )
+    chapa = models.CharField ( max_length = 7 , unique = True , verbose_name = ' Chapas ' )
+    cedula = models.CharField ( max_length = 7 , unique = True , verbose_name = ' Cedula ' )
     def __str__(self):
-        return self.nombre_conductor
+        return self.nombre
 
     class Meta:
         verbose_name = 'Camion'
@@ -164,7 +164,7 @@ class Entregas ( models.Model ) :
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     cliente = models.ForeignKey(Cliente,on_delete=models.PROTECT,null=True)
     def __str__(self):
-        return self.nombre_conductor
+        return self.camion_id
 
     class Meta:
         verbose_name = 'Entregas'

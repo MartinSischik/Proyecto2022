@@ -5,11 +5,11 @@
       <h3 class="page-title"> Stock </h3>
     </div>
     <div class="row">
-    <div class="col-12 grid-margin stretch-card">
+    <!-- <div class="col-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Granos</h4>
-          <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
+          <h4 class="card-title">Clientes</h4>
+          <a type="button" href="{% url 'CargaCliente'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
           <div class="row">
             <div class="col-12">
               <div class=" card-body table-responsive">  
@@ -18,23 +18,64 @@
                     <tr>
                       <th>Id</th>
                       <th>Nombre </th>
-                      <th>Variedad </th>
-                      <th>Procedencia</th>
-                      <th>Cantidad Kg</th>
+                      <th>Telefono </th>
+                      <th>Ruc</th>
+                      <th>Email</th>
                       <th>Opciones </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for lista in listatabla1 %}
+                    {% for lista in object_list %}
                     <tr>
                       <td> {{lista.id}} </td>
                       <td>{{lista.nombre}}</td>
-                      <td> {{lista.variedad}}</td>
-                      <td> {{lista.procedencia}} Kg</td>
-                      <td> {{lista.stock}} Kg</td>
+                      <td> {{lista.telefono}}</td>
+                      <td> {{lista.ruc}} </td>
+                      <td> {{lista.email}} </td>
                       <td>
-                        <a href="{% url 'EditGrano' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a  href="{% url 'DeleteGrano' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'EditCliente' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a  href="{% url 'DeleteCliente' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Proveedores</h4>
+          <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Proveedor</a>
+          <div class="row">
+            <div class="col-12">
+              <div class=" card-body table-responsive">  
+                    <table id="tabla1" class="table" >
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nombre </th>
+                      <th>Telefono </th>
+                      <th>Ruc</th>
+                      <th>Email</th>
+                      <th>Opciones </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for cosa in object_list %}
+                    <tr>
+                      <td> {{cosa.id}} </td>
+                      <td>{{cosa.nombre}}</td>
+                      <td> {{cosa.telefono}}</td>
+                      <td> {{cosa.ruc}} </td>
+                      <td> {{cosa.email}} </td>
+                      <td>
+                        <a href="" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a  href="type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
@@ -47,10 +88,10 @@
       </div>
     </div>
     
-      <div class="col-lg-6 col-md-12">
+      <!-- <div class="col-lg-6 col-md-12">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Camion</h4>
+          <h4 class="card-title">Proveedores</h4>
           <a type="button" href="{% url 'CargaCamion'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Camion</a>
           <div class="row">
             <div class="col-12">
@@ -58,20 +99,22 @@
                     <table id="tabla2" class="table" >
                   <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>Nombre </th>
-                      <th>Chapa</th>
-                      <th>Cedula</th>
-                      <th>Opciones</th>
+                        <th>Id</th>
+                        <th>Nombre </th>
+                        <th>Telefono </th>
+                        <th>Ruc</th>
+                        <th>Email Kg</th>
+                        <th>Opciones </th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for lista in listatabla2 %}
                     <tr>
-                      <td> {{lista.id}} </td>
-                      <td>{{lista.nombre}}</td>
-                      <td>{{lista.chapa}}</td>
-                      <td>{{lista.cedula}}</td>
+                        <td> {{lista.id}} </td>
+                        <td>{{lista.nombre}}</td>
+                        <td> {{lista.telefono}}</td>
+                        <td> {{lista.ruc}} Kg</td>
+                        <td> {{lista.email}} Kg</td>
                       <td>
                         <a href="{% url 'EditCamion' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a  href="{% url 'DeleteCamion' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
@@ -127,7 +170,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 {% endblock %}

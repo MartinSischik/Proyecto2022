@@ -1,6 +1,6 @@
 from django.forms import*
 
-from core.models import CateQuimico, Grano, Parcelas, Quimico,camion,Entregas
+from core.models import *
 
 class CateQuimicoForm(ModelForm):
     class Meta:
@@ -80,7 +80,7 @@ class GranoForm (ModelForm):
                         
                 }
             ),
-            'kilogramos': NumberInput(
+            'stock': NumberInput(
                 attrs= {'class':'form-control',
                         'placeholder':'Cantidad de Kilogramos',
                         
@@ -211,7 +211,80 @@ class EntregasForm (ModelForm):
             
         }
 
+class ClienteForm (ModelForm):
+    class Meta:
+        model = Cliente
+        fields = '__all__'
+        labels = {
+                
+                
+            }
+        widgets = {
+            'nombre': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Nombre',
+                        'name':'Nombre'
+                        
+                }
+            ),
+            'telefono': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Telefono',
+                        
+                        
+                }
+            ),
+            'ruc': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Ruc',
+                        
+                }
+            ),
+            'email': EmailInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Email',
+                        
+                }
+            ),
+            
+        }
 
-
+class ProveedorForm (ModelForm):
+    class Meta:
+        model = Proveedor
+        fields = '__all__'
+        labels = {
+                
+                
+            }
+        widgets = {
+            'nombre': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Nombre',
+                        'name':'Nombre'
+                        
+                }
+            ),
+            'telefono': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Telefono',
+                        
+                        
+                }
+            ),
+            'ruc': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Ruc',
+                        
+                }
+            ),
+            'email': EmailInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Email',
+                        
+                }
+            ),
+            
+        }
 
 

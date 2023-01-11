@@ -92,7 +92,7 @@ class GranoForm (ModelForm):
                         
                 }
             ),
-            'procedencia': TextInput(
+            'Procedencia': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Procedencia',
                         

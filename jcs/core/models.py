@@ -81,7 +81,7 @@ class Quimico ( models.Model ) :
     ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ingrediente Activo ' )
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     unidades =models.ForeignKey(Unidades,on_delete=models.CASCADE,null=True)
-    procedencia = models.CharField ( max_length = 10, default='' , verbose_name = ' Procedencia ',blank=True ,null=True )
+    procedencia =models.ForeignKey(Proveedor,on_delete=models.PROTECT)
     def __str__(self):
         return self.unidades
 

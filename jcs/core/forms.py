@@ -55,7 +55,13 @@ class QuimicoForm (ModelForm):
                         'placeholder':'Unidades de medida',
                         
                 }
-            )
+            ),
+            'procedencia': Select(
+                attrs= {'class':'form-control',
+                        'placeholder':'Procedencia',
+                        
+                }
+            ),
             
         }
 

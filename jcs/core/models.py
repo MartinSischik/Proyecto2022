@@ -95,7 +95,7 @@ class Parcelas ( models.Model ) :
     nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     ubicacion = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Ubicacion ' )
     hectareas = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
-    trabajos = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    trabajos = models.IntegerField(default=0)
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
         return self.nombre

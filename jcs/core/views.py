@@ -14,15 +14,14 @@ from login.views import *
 
 # Create your views here.
 
-def Inicio(request):
-    return render(request,'templates\login.html')
+
 
 def home(request):
     return render(request,'templates\home.html')
 
 @login_required
 # este se puede usar en cualquier Request
-def stock(request):
+def Inicio(request):
     
     listatabla2=Grano.objects.all()
     listatabla1=Quimico.objects.all()
@@ -30,15 +29,15 @@ def stock(request):
     listatabla4=Parcelas.objects.all()
     
     pagina='templates\stock1.html'
-    return render(request,'templates\Stock.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"listatabla4":listatabla4, "pagina":pagina})
+    return render(request,'templates\Inicio.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"listatabla4":listatabla4, "pagina":pagina})
 
 
 # Quimico
 class CargaQuimico(CreateView):
     model = Quimico
     form_class = QuimicoForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -54,8 +53,8 @@ class CargaQuimico(CreateView):
 class EditQuimico(UpdateView):
     model = Quimico
     form_class = QuimicoForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
     
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -71,7 +70,7 @@ class EditQuimico(UpdateView):
 class DeleteQuimico(DeleteView):
     model = Quimico
     template_name = 'templates\eliminar.html'
-    success_url = reverse_lazy('stock')
+    success_url = reverse_lazy('inicio')
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
     def dispatch(self, request, *args , **kwargs ) :
@@ -86,8 +85,8 @@ class DeleteQuimico(DeleteView):
 class CatQuimiCreateview(CreateView):
     model = CateQuimico
     form_class = CateQuimicoForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
     
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -103,8 +102,8 @@ class CatQuimiCreateview(CreateView):
 class CatQuimiEditview(UpdateView):
     model = CateQuimico
     form_class = CateQuimicoForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -120,7 +119,7 @@ class CatQuimiEditview(UpdateView):
 class DeleteQuimiCate(DeleteView):
     model = CateQuimico
     template_name = 'templates\eliminar.html'
-    success_url = reverse_lazy('stock')
+    success_url = reverse_lazy('inicio')
     
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -131,7 +130,7 @@ class DeleteQuimiCate(DeleteView):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Categoria'
         contexto['accion']='Eliminar'
-        contexto['list_url']=reverse_lazy('stock')
+        contexto['list_url']=reverse_lazy('inicio')
         return contexto
 
 
@@ -139,8 +138,8 @@ class DeleteQuimiCate(DeleteView):
 class CargaGrano(CreateView):
     model = Grano
     form_class = GranoForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -156,8 +155,8 @@ class CargaGrano(CreateView):
 class EditGrano(UpdateView):
     model = Grano
     form_class = GranoForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -173,7 +172,7 @@ class EditGrano(UpdateView):
 class DeleteGrano(DeleteView):
     model = Grano
     template_name = 'templates\eliminar.html'
-    success_url = reverse_lazy('stock')
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -192,8 +191,8 @@ class DeleteGrano(DeleteView):
 class CargaParcela(CreateView):
     model = Parcelas
     form_class = ParcelaForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -209,8 +208,8 @@ class CargaParcela(CreateView):
 class EditParcela(UpdateView):
     model = Parcelas
     form_class = ParcelaForm
-    template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('stock')
+    template_name = 'templates\CargaInicio.html'
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -226,7 +225,7 @@ class EditParcela(UpdateView):
 class DeleteParcela(DeleteView):
     model = Parcelas
     template_name = 'templates\eliminar.html'
-    success_url = reverse_lazy('stock')
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -237,10 +236,10 @@ class DeleteParcela(DeleteView):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Parcela'
         contexto['accion']='Eliminar'
-        contexto['list_url']=reverse_lazy('stock')
+        contexto['list_url']=reverse_lazy('inicio')
         return contexto
 
-
+@login_required
 # Entregas 
 def Entregas_Stock(request):
     
@@ -259,7 +258,7 @@ def Entregas_Stock(request):
 class CargaEntregas(CreateView):
     model = Entregas
     form_class = EntregasForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('Entregas_Stock')
     
     @method_decorator(login_required)
@@ -291,7 +290,7 @@ class CargaEntregas(CreateView):
 class EditEntregas(UpdateView):
     model = Entregas
     form_class = EntregasForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('Entregas_Stock')
     
     
@@ -360,7 +359,7 @@ class EditEntregas(UpdateView):
 
 class DeleteEntregas(DeleteView):
     model = Entregas
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('Entregas_Stock')
 
     @method_decorator(login_required)
@@ -378,7 +377,7 @@ class DeleteEntregas(DeleteView):
 class CargaCamion(CreateView):
     model = camion
     form_class = CamionForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('Entregas_Stock')
 
     @method_decorator(login_required)
@@ -408,7 +407,7 @@ class CargaCamion(CreateView):
 class EditCamion(UpdateView):
     model = camion
     form_class = CamionForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('Entregas_Stock')
 
     @method_decorator(login_required)
@@ -462,7 +461,7 @@ class ListaCliente(ListView):
 class CargaCliente(CreateView):
     model = Cliente
     form_class = ClienteForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('ListaCliente')
 
     @method_decorator(login_required)
@@ -479,7 +478,7 @@ class CargaCliente(CreateView):
 class EditCliente(UpdateView):
     model = Cliente
     form_class = ClienteForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('ListaCliente')
 
     @method_decorator(login_required)
@@ -528,7 +527,7 @@ class ListaProveedor(ListView):
 class CargaProveedor(CreateView):
     model = Proveedor
     form_class = ProveedorForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('ListaProveedor')
 
     @method_decorator(login_required)
@@ -545,7 +544,7 @@ class CargaProveedor(CreateView):
 class EditProveedor(UpdateView):
     model = Proveedor
     form_class = ProveedorForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\CargaInicio.html'
     success_url = reverse_lazy('ListaProveedor')
 
     @method_decorator(login_required)
@@ -575,4 +574,31 @@ class DeleteProveedor(DeleteView):
         contexto['accion']='Eliminar'
         contexto['list_url']=reverse_lazy('ListaProveedor')
         return contexto
+
+@login_required
+# este se puede usar en cualquier Request
+def stock2(request):
+    
+    listatabla2=Grano.objects.all()
+    listatabla1=Quimico.objects.all()
+    listatabla3=CateQuimico.objects.all()
+    listatabla4=Parcelas.objects.all()
+    
+    
+    return render(request,'templates\Stock2.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"listatabla4":listatabla4})
+
+@login_required
+# este se puede usar en cualquier Request
+def Parcela(request):
+    
+    # listatabla2=Grano.objects.all()
+    # listatabla1=Quimico.objects.all()
+    # listatabla3=CateQuimico.objects.all()
+    listatabla4=Parcelas.objects.all()
+    
+    # "listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,
+    return render(request,'templates\Parcelas.html',{"listatabla4":listatabla4})
+
+
+
 

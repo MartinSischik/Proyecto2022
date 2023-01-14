@@ -1,0 +1,56 @@
+{%extends 'templates/home.html'%}
+
+{% block content %}
+    <div class="page-header">
+      <h3 class="page-title"> Stock </h3>
+    </div>
+    
+    <div class="row">
+      <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Parcelas</h4>
+            <a type="button" href="{% url 'CargaParcela'  %}" class="btn btn-outline-secondary btn-fw">Nueva Parcela</a>
+            <div class="row">
+              <div class="col-12">
+                <div class="text-secondary">
+                  <div class="card-body table-responsive">  
+                        <table id="tabla1" class="table" >
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Nombre </th>
+                          <th>Ubicacion </th>
+                          <th>Hectareas </th>
+                          <th>Trabbajos realizados</th>
+                          <th>Gastos </th>
+                          <th>Opciones </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for lista in listatabla4 %}
+                        <tr>
+                          <td> {{lista.id}} </td>
+                          <td>{{lista.nombre}}</td>
+                          <td>{{lista.ubicacion}}</td>
+                          <td> {{lista.hectareas}}</td>
+                          <td> {{lista.trabajos}}</td>
+                          <td> {{lista.gasto}}</td>
+                          <td>
+                            <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="{% url 'DeleteParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+

@@ -7,10 +7,12 @@ from login.views import LoginFormView
 from django.contrib.auth.views import*
 urlpatterns = [
 
-    path('inicio/',views.Inicio, name='Inicio'),
+    path('inicio/',views.Inicio, name='inicio'),
     path('home/',views.home, name='home'),
-    path('stock/',views.stock, name='stock'),
+    # path('stock/',views.stock, name='stock'),
+    path('stock2/',views.stock2, name='stock2'),
     path('Entregas_Stock/',views.Entregas_Stock, name='Entregas_Stock'),
+    path('Parcela/',views.Parcela, name='Parcela'),
     path('ListaCliente/',views.ListaCliente.as_view(), name='ListaCliente'),
     path('ListaProveedor/',views.ListaProveedor.as_view(), name='ListaProveedor'),
     # login

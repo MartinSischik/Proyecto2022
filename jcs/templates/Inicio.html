@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="page-header">
-      <h3 class="page-title"> Stock </h3>
+      <h3 class="page-title"> Inicio </h3>
     </div>
     
     <div class="row">
@@ -104,6 +104,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Granos</h4>
+          <!-- <span id="result"></span> in total -->
           <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
           <div class="row">
             <div class="col-12">
@@ -126,7 +127,7 @@
                       <td>{{lista.nombre}}</td>
                       <td> {{lista.variedad}}</td>
                       <td> {{lista.Procedencia}}</td>
-                      <td> {{lista.stock}} Kg</td>
+                      <td> {{lista.stock}} </td>
                       <td>
                         <a href="{% url 'EditGrano' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a  href="{% url 'DeleteGrano' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
@@ -178,5 +179,16 @@
       </div>
     </div> -->
     </div>
+<!-- <script>
+  var resultado = document.getElementById("tabla3"),sumVal=0;
+  
+  for(var i=1;i<table.rows.length;i++ )
+  {
+    sumVal = sumVal+parseInt( table.rows[i].cells[4].innerHTML);
+  }
+  console.log(sumVal);
+
+
+</script> -->
 {% endblock %}
 

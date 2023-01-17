@@ -16,20 +16,22 @@
                       <table id="tabla3" class="table" >
                     <thead>
                       <tr>
-                        <th>Id</th>
+                        <!-- <th>Id</th> -->
                         <th>Cliente </th>
                         <th>Producto </th>
                         <th>Cantidad</th>
+                        <th>Fecha</th>
                         <th>Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       {% for lista in listatabla3 %}
                       <tr>
-                        <td> {{lista.id}} </td>
+                        <!-- <td> {{lista.id}} </td> -->
                         <td>{{lista.cliente}}</td>
                         <td> {{lista.grano_id}} </td>
                         <td>{{lista.cantidad}}</td>
+                        <td>{{lista.fecha}}</td>
                         <td>
                           <a href="{% url 'EditEntregas' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
                           <a  href="{% url 'DeleteEntregas' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
@@ -56,7 +58,7 @@
                     <table id="tabla2" class="table" >
                   <thead>
                     <tr>
-                      <th>Id</th>
+                      <!-- <th>Id</th> -->
                       <th>Nombre </th>
                       <th>Chapa</th>
                       <th>Cedula</th>
@@ -66,7 +68,7 @@
                   <tbody>
                     {% for lista in listatabla2 %}
                     <tr>
-                      <td> {{lista.id}} </td>
+                      <!-- <td> {{lista.id}} </td> -->
                       <td>{{lista.nombre}}</td>
                       <td>{{lista.chapa}}</td>
                       <td>{{lista.cedula}}</td>
@@ -99,7 +101,7 @@
                   <table id="tabla1" class="table" >
                 <thead>
                   <tr>
-                    <th>Id</th>
+                    <!-- <th>Id</th> -->
                     <th>Nombre </th>
                     <th>Variedad </th>
                     <th>Procedencia</th>
@@ -110,7 +112,7 @@
                 <tbody>
                   {% for lista in listatabla1 %}
                   <tr>
-                    <td> {{lista.id}} </td>
+                    <!-- <td> {{lista.id}} </td> -->
                     <td>{{lista.nombre}}</td>
                     <td> {{lista.variedad}}</td>
                     <td> {{lista.procedencia}} Kg</td>

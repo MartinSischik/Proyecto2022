@@ -213,6 +213,14 @@ class EntregasForm (ModelForm):
                         'placeholder':'Cantidad',
                         
                 }
+            ),
+            'fecha': DateInput(
+                attrs= {
+                        'type':'date',
+                        'class':'form-control',
+                        
+                        
+                }
             )
             
         }
@@ -293,4 +301,40 @@ class ProveedorForm (ModelForm):
             
         }
 
-
+class ProduccionForm (ModelForm):
+    class Meta:
+        model = Produccion
+        fields = '__all__'
+        labels = {
+                
+            }
+        widgets = {
+            'parcela': Select(
+                attrs= {'class':'form-control',
+                        'placeholder':'Parcela',
+                        
+                }
+            ),
+            'producto': Select(
+                attrs= {'class':'form-control',
+                        'placeholder':'Ubicacion',
+                        
+                }
+            ),
+            
+            'cantidad': NumberInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Unidades de medida',
+                        
+                }
+            ),
+            'fecha': DateInput(
+                attrs= {
+                        'type':'date',
+                        'class':'form-control',
+                        
+                        
+                }
+            )
+            
+        }

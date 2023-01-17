@@ -50,7 +50,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Proveedores</h4>
-          <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Proveedor</a>
+          <a type="button" href="{% url 'CargaProveedor'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Proveedor</a>
           <div class="row">
             <div class="col-12">
               <div class=" card-body table-responsive">  
@@ -74,8 +74,8 @@
                       <td> {{cosa.ruc}} </td>
                       <td> {{cosa.email}} </td>
                       <td>
-                        <a href="" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a  href="type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'EditProveedor' cosa.id  %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a  href="{% url 'DeleteProveedor' cosa.id  %}"button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}

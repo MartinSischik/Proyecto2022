@@ -181,6 +181,7 @@ class Entregas ( models.Model ) :
     camion_id =models.ForeignKey(camion,on_delete=models.CASCADE,null=True)
     grano_id =models.ForeignKey(Grano,on_delete=models.CASCADE,null=True)
     cantidad = models.IntegerField(default=0)
+    fecha = models.DateField()
     
     
     def __str__(self):
@@ -192,5 +193,18 @@ class Entregas ( models.Model ) :
         db_table = 'Entregas'
         ordering = ['id']
 
+class Produccion ( models.Model ) :
+    parcela = models.ForeignKey(Parcelas,on_delete=models.CASCADE,null=True)
+    producto = models.ForeignKey(Grano,on_delete=models.CASCADE,null=True)
+    cantidad = models.IntegerField ( default=0 )
+    fecha = models.DateField()
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Produccion'
+        verbose_name_plural = 'Producciones' 
+        db_table = 'Produccion'
+        ordering = ['id']    
 
     

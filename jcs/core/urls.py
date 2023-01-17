@@ -47,7 +47,11 @@ urlpatterns = [
     path('EditCliente/edit/<int:pk>/',EditCliente.as_view(), name='EditCliente'),
     path('DeleteCliente/delete/<int:pk>/',DeleteCliente.as_view(), name='DeleteCliente'),
     # Proveedores
-    path('CargaCliente/add/',CargaCliente.as_view(), name='CargaCliente'),
-    path('EditCliente/edit/<int:pk>/',EditCliente.as_view(), name='EditCliente'),
-    path('DeleteCliente/delete/<int:pk>/',DeleteCliente.as_view(), name='DeleteCliente'),
+    path('CargaProveedor/add/',CargaProveedor.as_view(), name='CargaProveedor'),
+    path('EditProveedor/edit/<int:pk>/',EditProveedor.as_view(), name='EditProveedor'),
+    path('DeleteProveedor/delete/<int:pk>/',DeleteProveedor.as_view(), name='DeleteProveedor'),
+    # Produccion
+    path('CargaProduccion/add/',CargaProduccion.as_view(), name='CargaProduccion'),
+    path('EditProduccion/edit/<int:pk>/',EditProduccion.as_view(), name='EditProduccion'),
+    path('DeleteProduccion/delete/<int:pk>/',DeleteProduccion.as_view(), name='DeleteProduccion'),
 ]

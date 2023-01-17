@@ -36,7 +36,7 @@ def Inicio(request):
 class CargaQuimico(CreateView):
     model = Quimico
     form_class = QuimicoForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -53,7 +53,7 @@ class CargaQuimico(CreateView):
 class EditQuimico(UpdateView):
     model = Quimico
     form_class = QuimicoForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
     
     @method_decorator(login_required)
@@ -85,7 +85,7 @@ class DeleteQuimico(DeleteView):
 class CatQuimiCreateview(CreateView):
     model = CateQuimico
     form_class = CateQuimicoForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
     
     @method_decorator(login_required)
@@ -102,7 +102,7 @@ class CatQuimiCreateview(CreateView):
 class CatQuimiEditview(UpdateView):
     model = CateQuimico
     form_class = CateQuimicoForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -138,7 +138,7 @@ class DeleteQuimiCate(DeleteView):
 class CargaGrano(CreateView):
     model = Grano
     form_class = GranoForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -155,7 +155,7 @@ class CargaGrano(CreateView):
 class EditGrano(UpdateView):
     model = Grano
     form_class = GranoForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -191,7 +191,7 @@ class DeleteGrano(DeleteView):
 class CargaParcela(CreateView):
     model = Parcelas
     form_class = ParcelaForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -208,7 +208,7 @@ class CargaParcela(CreateView):
 class EditParcela(UpdateView):
     model = Parcelas
     form_class = ParcelaForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -258,7 +258,7 @@ def Entregas_Stock(request):
 class CargaEntregas(CreateView):
     model = Entregas
     form_class = EntregasForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('Entregas_Stock')
     
     @method_decorator(login_required)
@@ -290,7 +290,7 @@ class CargaEntregas(CreateView):
 class EditEntregas(UpdateView):
     model = Entregas
     form_class = EntregasForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('Entregas_Stock')
     
     
@@ -316,7 +316,6 @@ class EditEntregas(UpdateView):
         print(grano2.stock)
         
         grano=Grano.objects.get(id=request.POST.get('grano_id'))
-        #grano.stock += det.cantidad
         det.cantidad=int(request.POST.get('cantidad'))
         grano.stock =grano.stock- det.cantidad
         print(grano2.nombre)
@@ -331,35 +330,17 @@ class EditEntregas(UpdateView):
         
         return HttpResponseRedirect(self.success_url)
 
-    # def post(self, request,*args,**kwargs):
 
-    #     print(request.POST)
-    #     # det = self.get_object
-    #     # grano=Grano.objects.get(id=request.POST.get('grano_id'))
-    #     # form =EntregasForm(request.POST)
-    #     # form.save()
-    #     # grano.stock = int(grano.stock) - int(request.POST.get('cantidad'))
-    #     # grano.save()
-    #     # return HttpResponseRedirect(self.success_url)
-    # Entregas.objects.get(pk)
-    #     det = Entregas.objects.get(pk=self.get_object().id)
-    #     print(det.cantidad)
-    #     grano=Grano.objects.get(id=request.POST.get('grano_id'))
-    #     grano.stock += det.cantidad
-    #     det.cantidad=int(request.POST.get('cantidad'))
-    #     grano.stock -= det.cantidad
-    #     grano.save()
-    #     return HttpResponseRedirect(self.success_url)
         
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Editar Parcela'
+        contexto['page_title']='Editar Entregas'
         contexto['accion']='Editar'
         return contexto
 
 class DeleteEntregas(DeleteView):
     model = Entregas
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('Entregas_Stock')
 
     @method_decorator(login_required)
@@ -369,7 +350,7 @@ class DeleteEntregas(DeleteView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Eliminar Parcela'
+        contexto['page_title']='Eliminar Entregas'
         contexto['accion']='Eliminar'
         return contexto
 
@@ -377,7 +358,7 @@ class DeleteEntregas(DeleteView):
 class CargaCamion(CreateView):
     model = camion
     form_class = CamionForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('Entregas_Stock')
 
     @method_decorator(login_required)
@@ -407,7 +388,7 @@ class CargaCamion(CreateView):
 class EditCamion(UpdateView):
     model = camion
     form_class = CamionForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('Entregas_Stock')
 
     @method_decorator(login_required)
@@ -433,7 +414,7 @@ class DeleteCamion(DeleteView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Eliminar Parcela'
+        contexto['page_title']='Eliminar Camion'
         contexto['accion']='Eliminar'
         contexto['list_url']=reverse_lazy('Entregas_Stock')
         return contexto
@@ -453,7 +434,7 @@ class ListaCliente(ListView):
     
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Editar Parcela'
+        contexto['page_title']='Editar Cliente'
         contexto['accion']='Editar'
         contexto['proveedores_contexto']=Proveedor.objects.all()
         return contexto
@@ -461,7 +442,7 @@ class ListaCliente(ListView):
 class CargaCliente(CreateView):
     model = Cliente
     form_class = ClienteForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('ListaCliente')
 
     @method_decorator(login_required)
@@ -471,14 +452,14 @@ class CargaCliente(CreateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Nuevo Parcela'
+        contexto['page_title']='Nuevo Cliente'
         contexto['accion']='Crear'
         return contexto
 
 class EditCliente(UpdateView):
     model = Cliente
     form_class = ClienteForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('ListaCliente')
 
     @method_decorator(login_required)
@@ -488,7 +469,7 @@ class EditCliente(UpdateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Editar Parcela'
+        contexto['page_title']='Editar Cliente'
         contexto['accion']='Editar'
         return contexto
 
@@ -504,7 +485,7 @@ class DeleteCliente(DeleteView):
         
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Eliminar Parcela'
+        contexto['page_title']='Eliminar Cliente'
         contexto['accion']='Eliminar'
         contexto['list_url']=reverse_lazy('ListaCliente')
         return contexto
@@ -527,7 +508,7 @@ class ListaProveedor(ListView):
 class CargaProveedor(CreateView):
     model = Proveedor
     form_class = ProveedorForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('ListaProveedor')
 
     @method_decorator(login_required)
@@ -537,14 +518,14 @@ class CargaProveedor(CreateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Nuevo Parcela'
+        contexto['page_title']='Nuevo Proveedor'
         contexto['accion']='Crear'
         return contexto
 
 class EditProveedor(UpdateView):
     model = Proveedor
     form_class = ProveedorForm
-    template_name = 'templates\CargaInicio.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('ListaProveedor')
 
     @method_decorator(login_required)
@@ -554,7 +535,7 @@ class EditProveedor(UpdateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Editar Parcela'
+        contexto['page_title']='Editar Proveedor'
         contexto['accion']='Editar'
         return contexto
 
@@ -570,7 +551,7 @@ class DeleteProveedor(DeleteView):
         
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Eliminar Parcela'
+        contexto['page_title']='Eliminar Proveedor'
         contexto['accion']='Eliminar'
         contexto['list_url']=reverse_lazy('ListaProveedor')
         return contexto
@@ -599,6 +580,55 @@ def Parcela(request):
     # "listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,
     return render(request,'templates\Parcelas.html',{"listatabla4":listatabla4})
 
+class CargaProduccion(CreateView):
+    model = Proveedor
+    form_class = ProduccionForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('ListaProveedor')
 
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Nuevo Produccion'
+        contexto['accion']='Crear'
+        return contexto
+
+class EditProduccion(UpdateView):
+    model = Proveedor
+    form_class = ProduccionForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('ListaProveedor')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Editar Produccion'
+        contexto['accion']='Editar'
+        return contexto
+
+class DeleteProduccion(DeleteView):
+    model = Proveedor
+    template_name = 'templates\eliminar.html'
+    success_url = reverse_lazy('ListaProveedor')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+        
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Eliminar Produccion'
+        contexto['accion']='Eliminar'
+        contexto['list_url']=reverse_lazy('ListaProveedor')
+        return contexto
 
 

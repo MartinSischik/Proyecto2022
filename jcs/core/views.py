@@ -24,7 +24,7 @@ def home(request):
 def Inicio(request):
     
     listatabla2=Grano.objects.all()
-    listatabla1=Quimico.objects.all()
+    listatabla1=Produccion.objects.all()
     listatabla3=CateQuimico.objects.all()
     listatabla4=Parcelas.objects.all()
     
@@ -348,6 +348,34 @@ class DeleteEntregas(DeleteView):
     def dispatch(self, request, *args , **kwargs ) :
         return super().dispatch(request, *args, **kwargs)
 
+    def post(self, request,pk,*args,**kwargs):
+        det = Entregas.objects.get(pk=self.get_object().id)
+        aux = pk
+        aux2 = det.cantidad
+        grano2=Grano.objects.get(nombre=det.grano_id)
+        print(grano2.stock)
+        suma = grano2.stock + aux2
+        grano2.stock=suma
+        grano2.save()
+        # print(aux2)
+        # print(suma)
+        # print('viejo')
+        # print(grano2.stock)
+        
+        # grano=Grano.objects.get(id=request.POST.get('grano_id'))
+        # det.cantidad=int(request.POST.get('cantidad'))
+        # grano.stock =grano.stock- det.cantidad
+        # print(grano2.nombre)
+        # print(grano2.stock)
+        # print(grano.nombre)
+        # print(grano.stock)
+        # grano.save()
+        # det.id=aux
+        det.delete()
+
+        
+        return HttpResponseRedirect(self.success_url)
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Entregas'
@@ -366,18 +394,6 @@ class CargaCamion(CreateView):
     def dispatch(self, request, *args , **kwargs ) :
         return super().dispatch(request, *args, **kwargs)
 
-    # def post(self, request,*args,**kwargs):
-    #     print(request.POST)
-    #     form =CamionForm(request.POST)
-            # form.save()
-        
-    #     if form.is_valid():
-    #         form.save()
-    #         return HttpResponseRedirect(self.success_url)
-    #     self.object= None
-    #     context=self.get_context_data(**kwargs)
-    #     context['form']=form
-    #     return render(request,self.template_name,context)
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
@@ -581,7 +597,7 @@ def Parcela(request):
     return render(request,'templates\Parcelas.html',{"listatabla4":listatabla4})
 
 class CargaProduccion(CreateView):
-    model = Proveedor
+    model = Produccion
     form_class = ProduccionForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('ListaProveedor')
@@ -598,7 +614,7 @@ class CargaProduccion(CreateView):
         return contexto
 
 class EditProduccion(UpdateView):
-    model = Proveedor
+    model = Produccion
     form_class = ProduccionForm
     template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('ListaProveedor')
@@ -615,7 +631,7 @@ class EditProduccion(UpdateView):
         return contexto
 
 class DeleteProduccion(DeleteView):
-    model = Proveedor
+    model = Produccion
     template_name = 'templates\eliminar.html'
     success_url = reverse_lazy('ListaProveedor')
 

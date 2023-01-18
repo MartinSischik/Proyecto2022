@@ -47,6 +47,15 @@
                         </tr>
                         {% endfor %}
                       </tbody>
+                      <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                    </tfoot>
                       </table>
                   </div>
                 </div>
@@ -55,51 +64,64 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-6 grid-margin stretch-card">
+      <div class="col-lg-6 col-md-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Agroquimicos</h4>
-          <a type="button" href="{% url 'CargaQuimico'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Agroquimico</a>
-          <div class="row">
-            <div class="col-12">
-            <div class="text-secondary">
-              <div class="card-body table-responsive">  
-                    <table id="tabla2" class="table" >
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Nombre </th>
-                      <th>Categoria </th>
-                      <th>Droga </th>
-                      <th>Cantidad</th>
-                      <th>Unidades </th>
-                      <th>Opciones </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for lista in listatabla1 %}
-                    <tr>
-                      <td> {{lista.id}} </td>
-                      <td>{{lista.nombre}}</td>
-                      <td>{{lista.categoria}}</td>
-                      <td> {{lista.ingrediente}}</td>
-                      <td> {{lista.cantidad}}{{lista.unidades}}</td>
-                      <td> </td>
-                      <td>
-                        <a href="{% url 'EditQuimico' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="{% url 'DeleteQuimico' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                  </table>
-              </div>
+            <h4 class="card-title">Produccion</h4>
+          <a type="button" href="{% url 'CargaProduccion'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Agroquimico</a>
+          <div class="container">
+            <div class="row">
+                <div class="col">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                      
+                        <thead>
+                          <tr>
+                            <!-- <th>Id</th> -->
+                            <th>Parcela </th>
+                            <th>Producto </th>
+                            <th>Cantidad kg </th>
+                            <th>Fecha</th>
+                            <th>Opciones </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for lista in listatabla1 %}
+                          <tr>
+                            <!-- <td> {{lista.id}} </td> -->
+                            <td>{{lista.parcela}}</td>
+                            <td>{{lista.producto}}</td>
+                            <td> {{lista.cantidad}}</td>
+                            <td> {{lista.fecha}}</td>
+                            <td>
+                              <!-- <a href="{% url 'EditProduccion' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                              <a href="{% url 'DeleteProduccion' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a> -->
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              
+                          </tr>
+                      </tfoot>
+                    </table> 
+                </div>
             </div>
-          </div>
+        </div>
+          <div class="col">
+            <button type="button" class="btn btn-success btn-fw">
+              Total<span id="total"></span>
+            </button>
           </div>
         </div>
-      </div>
-    </div> -->
+        
+        </div>
+    </div>
     <div class="col-lg-6 col-md-12">
       <div class="card">
         <div class="card-body">
@@ -190,5 +212,46 @@
 
 
 </script> -->
+
+<script>
+  $(document).ready(function(){
+    var tablita = $('#produccion').DataTable({
+      });
+      var tot = tablita.column(2).data().sum();
+      $("#total").text(tot);
+      
+  });
+
+</script>
+<script>
+    $(document).ready(function(){
+      var tabla = $("#tabla1").DataTable({
+              "drawCallback":function(){
+                    //alert("La tabla se está recargando"); 
+                    var api = this.api();
+                    $(api.column(2).footer()).html(
+                        'Total: '+api.column(2, {page:'current'}).data().sum()
+                    )
+              }
+      });
+</script>
+<script>
+  $(document).ready(function(){
+      var tabla = $("#example").DataTable({
+              
+              "drawCallback":function(){
+                    //alert("La tabla se está recargando"); 
+                    var api = this.api();
+                    $(api.column(2).footer()).html(
+                        'Total: '+api.column(2, {page:'current'}).data().sum()
+                    )
+              }
+      });
+
+      //1era forma para sum()
+      //var tot = tabla.column(5).data().sum();
+      //$("#total").text(tot);
+  });
+  </script>
 {% endblock %}
 

@@ -10,39 +10,53 @@
           <div class="card-body">
             <h4 class="card-title">Entregas</h4>
             <a type="button" href="{% url 'CargaEntregas'  %}" class="btn btn-outline-secondary btn-fw">Nueva Entrega</a>
-            <div class="row">
-              <div class="col-12">
-                <div class=" card-body table-responsive">  
-                      <table id="tabla3" class="table" >
-                    <thead>
-                      <tr>
-                        <!-- <th>Id</th> -->
-                        <th>Cliente </th>
-                        <th>Producto </th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                        <th>Opciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for lista in listatabla3 %}
-                      <tr>
-                        <!-- <td> {{lista.id}} </td> -->
-                        <td>{{lista.cliente}}</td>
-                        <td> {{lista.grano_id}} </td>
-                        <td>{{lista.cantidad}}</td>
-                        <td>{{lista.fecha}}</td>
-                        <td>
-                          <a href="{% url 'EditEntregas' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                          <a  href="{% url 'DeleteEntregas' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                        </td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                    </table>
-                </div>
+            <div class="col-12">
+              <div class="row">
+                  <div class="card-body table-responsive">
+                      <table id="produccion" class="table" style="width:100%">
+                        
+                        <thead>
+                          <tr>
+                            <!-- <th>Id</th> -->
+                            <th>Cliente </th>
+                            <th>Producto </th>
+                            <th>Cantidad</th>
+                            <th>Fecha</th>
+                            <th>Opciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for lista in listatabla3 %}
+                          <tr>
+                            <!-- <td> {{lista.id}} </td> -->
+                            <td>{{lista.cliente}}</td>
+                            <td> {{lista.grano_id}} </td>
+                            <td>{{lista.cantidad}}Kg</td>
+                            <td>{{lista.fecha}}</td>
+                            <td>
+                              <a href="{% url 'EditEntregas' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                              <a  href="{% url 'DeleteEntregas' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                          <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+                                
+                            </tr>
+                        </tfoot>
+                      </table> 
+                  </div>
               </div>
-            </div>
+          </div>
+            
+            
           </div>
         </div>
       </div>
@@ -115,7 +129,7 @@
                     <!-- <td> {{lista.id}} </td> -->
                     <td>{{lista.nombre}}</td>
                     <td> {{lista.variedad}}</td>
-                    <td> {{lista.procedencia}} Kg</td>
+                    <td> {{lista.Procedencia}}</td>
                     <td> {{lista.stock}} Kg</td>
                     <td>
                       <a href="{% url 'EditGrano' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>

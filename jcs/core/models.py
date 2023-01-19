@@ -48,7 +48,7 @@ class Grano ( models.Model ) :
     stock = models.IntegerField(default=0)
     precio = models.DecimalField(default=0.00, max_digits=12, decimal_places=2, null=True ,blank=True)
     def __str__(self):
-        return self.nombre
+        return f'{self.nombre} {self.variedad}'
 
     class Meta:
         verbose_name = 'Semilla'

@@ -16,6 +16,8 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
+    <script src="vendor/select2/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
       $(document).ready(function () {
         $('#tabla1').DataTable();
@@ -26,11 +28,46 @@
         $('#tabla6').DataTable();
         $('#tabla7').DataTable();
         $('#tabla8').DataTable();
-        $('#produccion').DataTable();
+        // $('#produccion').DataTable();
       });
     </script>
     <script>
       $(document).ready(function() {
     $('.js-example-basic-multiple').select2();});
     </script>
+    <script>
+      $(function(){
+        $("#select1").select2();
+        $("#select2").select2();
+        $("#select3").select2();
+      })
+    </script>
+    <script>
+      $(document).ready(function(){
+          var tabla = $("#produccion").DataTable({
+                  
+                  "drawCallback":function(){
+                        //alert("La tabla se está recargando"); 
+                        var api = this.api();
+                        $(api.column(2).footer()).html(
+                            'Total: '+api.column(2, {page:'current'}).data().sum()+' Kg'
+                        )
+                  }
+          });
+      });
+      </script>
+      <script>
+        $(document).ready(function(){
+            var tabla = $("#TablaParcela").DataTable({
+                    
+                    "drawCallback":function(){
+                          //alert("La tabla se está recargando"); 
+                          var api = this.api();
+                          $(api.column(5).footer()).html(
+                              'Total: '+api.column(5, {page:'current'}).data().sum()+' usd'
+                          )
+                    }
+            });
+        });
+        </script>
     

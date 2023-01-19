@@ -28,7 +28,7 @@ def Inicio(request):
     listatabla3=CateQuimico.objects.all()
     listatabla4=Parcelas.objects.all()
     
-    pagina='templates\stock1.html'
+    pagina='templates\EntregaStock.html'
     return render(request,'templates\Inicio.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"listatabla4":listatabla4, "pagina":pagina})
 
 
@@ -151,6 +151,7 @@ class CargaGrano(CreateView):
         contexto['page_title']='Nuevo Stock de Semilla'
         contexto['accion']='Crear'
         return contexto
+    
 
 class EditGrano(UpdateView):
     model = Grano
@@ -248,8 +249,8 @@ def Entregas_Stock(request):
         listatabla3=Entregas.objects.all()
         # listatabla4=Parcelas.objects.all()
         
-        pagina='templates\stock1.html'
-        return render(request,'templates\stock1.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"pagina":pagina})
+        pagina='templates\EntregaStock.html'
+        return render(request,'templates\EntregaStock.html',{"listatabla1":listatabla1,"listatabla2":listatabla2,"listatabla3":listatabla3,"pagina":pagina})
     
 
 
@@ -266,10 +267,7 @@ class CargaEntregas(CreateView):
     def dispatch(self, request, *args , **kwargs ) :
         return super().dispatch(request, *args, **kwargs)
 
-    # def post(self, request, *args, **kwargs):
-    #     det = Entregas()
-    #     det.grano_id.stock -= det.cantidad
-    #     det.grano_id.save
+
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Nueva Entrega'
@@ -305,7 +303,7 @@ class EditEntregas(UpdateView):
         det = Entregas.objects.get(pk=self.get_object().id)
         aux = pk
         aux2 = det.cantidad
-        grano2=Grano.objects.get(nombre=det.grano_id)
+        grano2=Grano.objects.get(id=det.grano_id_id)
         print(grano2.stock)
         suma = grano2.stock + aux2
         grano2.stock=suma
@@ -352,25 +350,11 @@ class DeleteEntregas(DeleteView):
         det = Entregas.objects.get(pk=self.get_object().id)
         aux = pk
         aux2 = det.cantidad
-        grano2=Grano.objects.get(nombre=det.grano_id)
+        grano2=Grano.objects.get(id=det.grano_id_id)
         print(grano2.stock)
         suma = grano2.stock + aux2
         grano2.stock=suma
         grano2.save()
-        # print(aux2)
-        # print(suma)
-        # print('viejo')
-        # print(grano2.stock)
-        
-        # grano=Grano.objects.get(id=request.POST.get('grano_id'))
-        # det.cantidad=int(request.POST.get('cantidad'))
-        # grano.stock =grano.stock- det.cantidad
-        # print(grano2.nombre)
-        # print(grano2.stock)
-        # print(grano.nombre)
-        # print(grano.stock)
-        # grano.save()
-        # det.id=aux
         det.delete()
 
         
@@ -600,7 +584,7 @@ class CargaProduccion(CreateView):
     model = Produccion
     form_class = ProduccionForm
     template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('ListaProveedor')
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -613,11 +597,21 @@ class CargaProduccion(CreateView):
         contexto['accion']='Crear'
         return contexto
 
+    def post(self, request,*args,**kwargs):
+        print(request.POST)
+        det = Produccion()
+        grano=Grano.objects.get(id=request.POST.get('producto'))
+        form =ProduccionForm(request.POST)
+        form.save()
+        grano.stock = int(grano.stock) + int(request.POST.get('cantidad'))
+        grano.save()
+        return HttpResponseRedirect(self.success_url)
+
 class EditProduccion(UpdateView):
     model = Produccion
     form_class = ProduccionForm
     template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('ListaProveedor')
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -633,18 +627,49 @@ class EditProduccion(UpdateView):
 class DeleteProduccion(DeleteView):
     model = Produccion
     template_name = 'templates\eliminar.html'
-    success_url = reverse_lazy('ListaProveedor')
+    success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
     def dispatch(self, request, *args , **kwargs ) :
         return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request,pk,*args,**kwargs):
+        det = Produccion.objects.get(pk=self.get_object().id)
+        aux = pk
+        aux2 = det.cantidad
+        grano2=Grano.objects.get(id=det.producto_id)
+        print(grano2.stock)
+        suma = grano2.stock - aux2
+        grano2.stock=suma
+        grano2.save()
+        det.delete()
+
+        
+        return HttpResponseRedirect(self.success_url)
         
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
         contexto['page_title']='Eliminar Produccion'
         contexto['accion']='Eliminar'
-        contexto['list_url']=reverse_lazy('ListaProveedor')
+        contexto['list_url']=reverse_lazy('inicio')
         return contexto
 
+class DeleteProduccionNoStock(DeleteView):
+    model = Produccion
+    template_name = 'templates\eliminar.html'
+    success_url = reverse_lazy('inicio')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+        
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Eliminar Produccion'
+        contexto['accion']='Eliminar'
+        contexto['list_url']=reverse_lazy('inicio')
+        return contexto
 

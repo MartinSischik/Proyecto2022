@@ -6,7 +6,66 @@
     </div>
     
     <div class="row">
-      <div class="col-12 grid-margin stretch-card">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Parcelas</h4>
+            <a type="button" href="{% url 'CargaParcela'  %}" class="btn btn-outline-secondary btn-fw">Nueva Parcela</a>
+
+          <div class="col-12">
+            <div class="row">
+                <div class="card-body table-responsive">
+                    <table id="TablaParcela" class="table" style="width:100%">
+                      
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Nombre </th>
+                            <th>Ubicacion </th>
+                            <th>Hectareas </th>
+                            <th>Trabbajos realizados</th>
+                            <th>Gastos </th>
+                            <th>Opciones </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for lista in listatabla4 %}
+                          <tr>
+                            <td> {{lista.id}} </td>
+                            <td>{{lista.nombre}}</td>
+                            <td>{{lista.ubicacion}}</td>
+                            <td> {{lista.hectareas}}</td>
+                            <td> {{lista.trabajos}}</td>
+                            <td> {{lista.gasto | stringformat:".2f"}} usd</td>
+                            <td>
+                              <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
+                              <a href="{% url 'DeleteParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              
+                          </tr>
+                      </tfoot>
+                    </table> 
+                </div>
+            </div>
+        </div>
+          
+        </div>
+        
+        </div>
+    </div>
+      <!-- <div class="col-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Parcelas</h4>
@@ -15,7 +74,7 @@
               <div class="col-12">
                 <div class="text-secondary">
                   <div class="card-body table-responsive">  
-                        <table id="tabla1" class="table" >
+                        <table id="TablaParcela" class="table" >
                       <thead>
                         <tr>
                           <th>Id</th>
@@ -50,7 +109,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 {% endblock %}
 

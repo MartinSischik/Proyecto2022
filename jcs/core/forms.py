@@ -35,7 +35,7 @@ class QuimicoForm (ModelForm):
             'categoria': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Categoria',
-                        
+                        'id':'select1'
                 }
             ),
             'ingrediente': TextInput(
@@ -52,14 +52,14 @@ class QuimicoForm (ModelForm):
             ),
             'unidades': Select(
                 attrs= {'class':'form-control',
-                        'placeholder':'Unidades de medida',
-                        
+                        'placeholder':'1',
+                        'id':'select2'
                 }
             ),
             'procedencia': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Procedencia',
-                        
+                        'id':'select3'
                 }
             ),
             
@@ -101,7 +101,7 @@ class GranoForm (ModelForm):
             'Procedencia': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Procedencia',
-                        
+                        'id':'select1'
                 }
             ),
             
@@ -189,15 +189,22 @@ class EntregasForm (ModelForm):
                 
             }
         widgets = {
+            'cliente': Select(
+                attrs= {'class':'form-control',
+                        'placeholder':'Cantidad',
+                        'id':'select1'
+                }
+            ),
             'camion_id': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Nombre',
-                        
+                        'id':'select2'
                 }
             ),
             'grano_id': Select(
                 attrs= {'class':'form-control',
-                        'placeholder':'Ubicacion',
+                        # 'placeholder':'Ubicacion',
+                        'id':'select3'
                         
                 }
             ),
@@ -208,12 +215,7 @@ class EntregasForm (ModelForm):
                         
                 }
             ),
-            'cliente': Select(
-                attrs= {'class':'form-control',
-                        'placeholder':'Cantidad',
-                        
-                }
-            ),
+            
             'fecha': DateInput(
                 attrs= {
                         'type':'date',
@@ -312,12 +314,13 @@ class ProduccionForm (ModelForm):
             'parcela': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Parcela',
-                        
+                        'id':'select1'
                 }
             ),
             'producto': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Ubicacion',
+                        'id':'select2'
                         
                 }
             ),

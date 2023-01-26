@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -13,7 +14,7 @@ class Type (models.Model):
         verbose_name_plural = 'Tipos' 
         ordering = ['id']
 class Employee ( models.Model ) :
-    type =models.ForeignKey(Type,on_delete=models.PROTECT)
+    type =models.ForeignKey(Type,on_delete=models.CASCADE)
     names = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     ci = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ci ' )
     salary = models.DecimalField(default=0.00, max_digits=9,decimal_places=2)
@@ -44,7 +45,7 @@ class Proveedor ( models.Model ) :
 class Grano ( models.Model ) :
     nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     variedad = models.CharField ( max_length = 10 ,  verbose_name = ' Variedad ' )
-    Procedencia =models.ForeignKey(Proveedor,on_delete=models.PROTECT)
+    Procedencia =models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
     precio = models.DecimalField(default=0.00, max_digits=12, decimal_places=2, null=True ,blank=True)
     def __str__(self):
@@ -81,7 +82,7 @@ class Quimico ( models.Model ) :
     ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ingrediente Activo ' )
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     unidades =models.ForeignKey(Unidades,on_delete=models.CASCADE,null=True)
-    procedencia =models.ForeignKey(Proveedor,on_delete=models.PROTECT)
+    procedencia =models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     def __str__(self):
         return self.unidades
 
@@ -117,11 +118,12 @@ class tipo_trabajo (models.Model):
         ordering = ['id']
 
 class Trabajo ( models.Model ) :
-    nombre =models.ForeignKey(Parcelas,on_delete=models.PROTECT,null=True)
-    tipo =models.ForeignKey(tipo_trabajo,on_delete=models.PROTECT,null=True)
+    parcela =models.ForeignKey(Parcelas,on_delete=models.CASCADE,null=True)
+    tipo =models.ForeignKey(tipo_trabajo,on_delete=models.CASCADE,null=True)
     hectareas = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     descripcion = models.CharField ( max_length = 50 , unique = True , verbose_name = ' descripcion ' )
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    fecha = models.DateField(default=datetime.now)
     def __str__(self):
         return self.tipo
 
@@ -133,8 +135,8 @@ class Trabajo ( models.Model ) :
 
 
 class Trabajo_stock ( models.Model ) :
-    trabajo_id =models.ForeignKey(Trabajo,on_delete=models.PROTECT,null=True)
-    quimico_id =models.ForeignKey(Quimico,on_delete=models.PROTECT,null=True)
+    trabajo_id =models.ForeignKey(Trabajo,on_delete=models.CASCADE,null=True)
+    quimico_id =models.ForeignKey(Quimico,on_delete=models.CASCADE,null=True)
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):

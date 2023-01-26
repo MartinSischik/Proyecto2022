@@ -341,3 +341,59 @@ class ProduccionForm (ModelForm):
             )
             
         }
+
+class TrabajoForm (ModelForm):
+    class Meta:
+        model = Trabajo
+        fields = '__all__'
+        labels = {
+                
+                
+            }
+        widgets = {
+            'parcela': Select(
+                attrs= {'class':'form-control',
+                        'placeholder':'Parcela',
+                        'id':'select1'
+                        
+                }
+            ),
+            'tipo': Select(
+                attrs= {'class':'form-control',
+                        'placeholder':'Chapa',
+                        'id':'select2'
+                        
+                }
+            ),
+            'hectareas': NumberInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Hectareas',
+                        
+                }
+            ),
+            'descripcion': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Descripcion',
+                        
+                }
+            ),
+            'gasto': TextInput(
+                attrs= {'class':'form-control',
+                        'placeholder':'Gastos',
+                        
+                }
+            ),
+            'fecha': DateInput(format='%Y-%m-%d',
+                attrs= {
+                        'type':'date',
+                        'class':'form-control',
+                        'value': datetime.now().strftime('%Y-%m-%d'),
+                        
+                }
+            )
+            
+        }
+        
+
+
+

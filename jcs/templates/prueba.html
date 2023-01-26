@@ -1,0 +1,98 @@
+{%extends 'templates/home.html'%}
+
+{% block content %}
+    <div class="page-header">
+      <h3 class="page-title"> {{title}} </h3>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><i class="fa-solid fa-tractor"></i>Detalles</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar Producto" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <!-- <button class="btn btn-sm btn-primary" type="button"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+                            <button class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-ban"></i></button>
+                        </div>
+                    </div>
+                </div>    
+            
+            
+                <div class="card-body">
+                    
+                    <table id="tabla3" class="table" >
+                        <thead>
+                        <tr>
+                            <th>Eliminar </th>
+                            <th>Producto </th>
+                            <th>Categoria </th>
+                            <th>Precio </th>
+                            <th>Cantidad </th>
+                            <th>Subtotal </th>
+                            
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+
+                            <th> </th>
+                            <th> </th>
+                            <th> </th>
+                            <th> </th>
+                            <th> </th>
+                            <th> </th>
+                        </tr>
+
+                        </tbody>
+                        </table>
+                    
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <button type="submit" class="btn btn-primary mr-2">Aceptar</button>
+                        <button class="btn btn-dark">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-4 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Datos de Trabajo</h4>
+            
+                <div class="form-group">
+                    <label>Fehca</label>
+                    {{form.fecha}}
+                </div>
+                <div class="form-group">
+                    <label>Parcela</label>
+                    {{form.parcela}}
+                </div>
+                <div class="form-group">
+                    <label>Tipo de trabajo</label>
+                    {{form.tipo}}
+                </div>
+                <div class="form-group">
+                    <label>Hectareas</label>
+                    {{form.hectareas}}
+                </div>
+                <div class="form-group">
+                    <label>Total</label>
+                    {{form.gasto}}
+                </div>
+            
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    
+
+
+{% endblock %}
+

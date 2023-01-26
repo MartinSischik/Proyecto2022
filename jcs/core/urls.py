@@ -2,6 +2,7 @@
 from django.urls import path
 
 from core import views
+from core.Sale.views import SaleCreateView
 from core.views import*
 from login.views import LoginFormView
 from django.contrib.auth.views import*
@@ -34,6 +35,13 @@ urlpatterns = [
     path('CargaParcela/add/',CargaParcela.as_view(), name='CargaParcela'),
     path('EditParcela/edit/<int:pk>/',EditParcela.as_view(), name='EditParcela'),
     path('DeleteParcela/delete/<int:pk>/',DeleteParcela.as_view(), name='DeleteParcela'),
+    # Trabajos
+    path('CargaTrabajo/add/',CargaTrabajo.as_view(), name='CargaTrabajo'),
+    path('EditTrabajo/edit/<int:pk>/',EditTrabajo.as_view(), name='EditTrabajo'),
+    path('DeleteTrabajo/delete/<int:pk>/',DeleteTrabajo.as_view(), name='DeleteTrabajo'),
+    # trabajo prueba
+    path('SaleCreateView/add/',SaleCreateView.as_view(), name='SaleCreateView'),
+
     # Camiones
     path('CargaCamion/add/',CargaCamion.as_view(), name='CargaCamion'),
     path('EditCamion/edit/<int:pk>/',EditCamion.as_view(), name='EditCamion'),

@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.http import request,HttpResponseRedirect
 from core.forms import *
+from core.mixins import IsSupperusserMixin
 from core.models import *
 from core.models import Grano
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView
@@ -17,7 +18,7 @@ from login.views import *
 
 
 def home(request):
-    return render(request,'templates\home.html')
+    return render(request,'templates\index.html')
 
 @login_required
 # este se puede usar en cualquier Request
@@ -439,7 +440,7 @@ class ListaCliente(ListView):
         contexto['proveedores_contexto']=Proveedor.objects.all()
         return contexto
 
-class CargaCliente(CreateView):
+class CargaCliente(IsSupperusserMixin ,CreateView):
     model = Cliente
     form_class = ClienteForm
     template_name = 'templates\CargaStock.html'
@@ -593,7 +594,7 @@ class CargaProduccion(CreateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Nuevo Produccion'
+        contexto['page_title']='Nueva Produccion'
         contexto['accion']='Crear'
         return contexto
 
@@ -673,3 +674,54 @@ class DeleteProduccionNoStock(DeleteView):
         contexto['list_url']=reverse_lazy('inicio')
         return contexto
 
+class CargaTrabajo(CreateView):
+    model =Trabajo
+    form_class = TrabajoForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('Entregas_Stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Nuevo Camion'
+        contexto['accion']='Crear'
+        return contexto
+
+class EditTrabajo(UpdateView):
+    model = Trabajo
+    form_class = TrabajoForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('Entregas_Stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Editar Camion'
+        contexto['accion']='Editar'
+        return contexto
+
+class DeleteTrabajo(DeleteView):
+    model = Trabajo
+    template_name = 'templates\eliminar.html'
+    success_url = reverse_lazy('Entregas_Stock')
+
+    @method_decorator(login_required)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args , **kwargs ) :
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        contexto=super().get_context_data(**kwargs)
+        contexto['page_title']='Eliminar Camion'
+        contexto['accion']='Eliminar'
+        contexto['list_url']=reverse_lazy('Entregas_Stock')
+        return contexto

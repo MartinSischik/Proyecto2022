@@ -378,9 +378,10 @@ class TrabajoForm (ModelForm):
                 }
             ),
             'gasto': TextInput(
-                attrs= {'class':'form-control',
+                attrs= {'readonly':True,
                         'placeholder':'Gastos',
-                        
+                        'class':'form-control',
+                        'background-color': '#2A3038'
                 }
             ),
             'fecha': DateInput(format='%Y-%m-%d',

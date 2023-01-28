@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-
+from django.forms import model_to_dict
 # Create your models here.
 
 
@@ -83,15 +83,23 @@ class Quimico ( models.Model ) :
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     unidades =models.ForeignKey(Unidades,on_delete=models.CASCADE,null=True)
     procedencia =models.ForeignKey(Proveedor,on_delete=models.CASCADE)
+    precio=models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
-        return self.unidades
+        return self.nombre
 
-    class Meta:
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['categoria'] = self.categoria.toJSON()
+        item['ingrediente'] = self.ingrediente.toJSON()
+        item['precio'] = format(self.precio, '.2f')
+        return item
+
+class Meta:
         verbose_name = 'Quimico'
         verbose_name_plural = 'Quimicos' 
         db_table = 'Quimicos'
         ordering = ['id']
-
 class Parcelas ( models.Model ) :
     nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
     ubicacion = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Ubicacion ' )
@@ -134,13 +142,14 @@ class Trabajo ( models.Model ) :
         ordering = ['id']
 
 
-class Trabajo_stock ( models.Model ) :
-    trabajo_id =models.ForeignKey(Trabajo,on_delete=models.CASCADE,null=True)
-    quimico_id =models.ForeignKey(Quimico,on_delete=models.CASCADE,null=True)
+class Det_Trabajo ( models.Model ) :
+    trabajo =models.ForeignKey(Trabajo,on_delete=models.CASCADE,null=True)
+    quimico =models.ForeignKey(Quimico,on_delete=models.CASCADE,null=True)
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
-    gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    precio = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
+    subtotal=models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
-        return self.trabajo_id
+        return self.trabajo
 
     class Meta:
         verbose_name = 'Trabajo Stock'

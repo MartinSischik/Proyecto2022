@@ -11,11 +11,7 @@
                 <div class="card-header">
                     <h4 class="card-title"><i class="fa-solid fa-tractor"></i>Detalles</h4>
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar Producto" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <!-- <button class="btn btn-sm btn-primary" type="button"><i class="fa-solid fa-magnifying-glass"></i></button> -->
-                            <button class="btn btn-sm btn-danger" type="button"><i class="fa-solid fa-ban"></i></button>
-                        </div>
+                        <select name="search" class="form-control" id="select3" style="width:100%;"></select>
                     </div>
                 </div>    
             
@@ -66,7 +62,7 @@
                 <h4 class="card-title">Datos de Trabajo</h4>
             
                 <div class="form-group">
-                    <label>Fehca</label>
+                    <label>fecha </label>
                     {{form.fecha}}
                 </div>
                 <div class="form-group">
@@ -91,8 +87,17 @@
         </div>
     </div>
     
-    
+    <script>
+        $(function(){
+          $('select[name="search"]').select2({
+            // theme:"bootstrap4",
+            language:"es",
+          })
 
+
+          
+        })
+      </script>
 
 {% endblock %}
 

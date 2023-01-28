@@ -37,7 +37,7 @@ def Inicio(request):
 class CargaQuimico(CreateView):
     model = Quimico
     form_class = QuimicoForm
-    template_name = 'templates\CargaStock.html'
+    template_name = 'templates\Test.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -597,7 +597,7 @@ class CargaProduccion(CreateView):
         contexto['page_title']='Nueva Produccion'
         contexto['accion']='Crear'
         return contexto
-
+    
     def post(self, request,*args,**kwargs):
         print(request.POST)
         det = Produccion()

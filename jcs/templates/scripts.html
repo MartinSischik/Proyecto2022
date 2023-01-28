@@ -10,13 +10,14 @@
     <script src="{%static 'assets/js/settings.js'%}"></script>
     <script src="{%static 'assets/js/todolist.js'%}"></script>
     <!-- endinject -->
-    <!-- Custom js for this page -->
+    <!-- Custom js for this page -->         
+
     <script src="{%static 'assets/js/data-table.js'%}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
-    <script src="vendor/select2/dist/js/select2.min.js"></script>
+    <!-- <script src="{%static 'vendor/select2/dist/js/select2.min.js'%}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
       $(document).ready(function () {
@@ -32,14 +33,11 @@
       });
     </script>
     <script>
-      $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();});
-    </script>
-    <script>
       $(function(){
         $("#select1").select2();
         $("#select2").select2();
         $("#select3").select2();
+        $("#id_nombre").select2();
       })
     </script>
     <script>

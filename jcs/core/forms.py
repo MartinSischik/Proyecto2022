@@ -57,9 +57,9 @@ class QuimicoForm (ModelForm):
                 }
             ),
             'procedencia': Select(
-                attrs= {'class':'form-control',
+                attrs= {'class':'form-control select2',
                         'placeholder':'Procedencia',
-                        'id':'select3'
+                        # 'id':'select3'
                 }
             ),
             
@@ -343,6 +343,7 @@ class ProduccionForm (ModelForm):
         }
 
 class TrabajoForm (ModelForm):
+    nombre=ModelChoiceField(queryset=Quimico.objects.none(),widget=Select(attrs={'class':'form-control select2','style':'width 100%'}))
     class Meta:
         model = Trabajo
         fields = '__all__'

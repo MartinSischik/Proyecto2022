@@ -30,13 +30,16 @@ class Employee ( models.Model ) :
     
 
 class Proveedor ( models.Model ) :
-    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombres ' )
+    name = models.CharField ( max_length = 150 , verbose_name = ' Names ' )
     telefono = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Telefonos ' )
     ruc = models.CharField ( max_length = 150 , unique = True , verbose_name = ' Ruc ' )
     email = models.CharField ( max_length = 150 , unique = True , verbose_name = ' email ' )
     def __str__(self):
-        return self.nombre
+        return self.name
 
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
     class Meta:
         verbose_name = 'Proveedor'
         verbose_name_plural = 'Proveedores' 
@@ -72,12 +75,17 @@ class CateQuimico (models.Model):
     def __str__(self):
         return self.nombre
         
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias' 
         ordering = ['id']
+
+
 class Quimico ( models.Model ) :
-    nombre = models.CharField ( max_length = 150 , verbose_name = ' Nombre ' )
+    name = models.CharField ( max_length = 150 , verbose_name = ' Nombre ',unique=True )
     categoria =models.ForeignKey(CateQuimico,on_delete=models.CASCADE,null=True)
     ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ingrediente Activo ' )
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
@@ -85,13 +93,15 @@ class Quimico ( models.Model ) :
     procedencia =models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     precio=models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
-        return self.nombre
+        return self.name
 
     
     def toJSON(self):
         item = model_to_dict(self)
         item['categoria'] = self.categoria.toJSON()
-        item['ingrediente'] = self.ingrediente.toJSON()
+
+        item['cantidad'] = format(self.cantidad, '.2f')
+        # item['unidades'] = self.unidades.toJSON()
         item['precio'] = format(self.precio, '.2f')
         return item
 
@@ -108,6 +118,11 @@ class Parcelas ( models.Model ) :
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
         return self.nombre
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+
+        return item
 
     class Meta:
         verbose_name = 'Parcela'
@@ -132,14 +147,24 @@ class Trabajo ( models.Model ) :
     descripcion = models.CharField ( max_length = 50 , unique = True , verbose_name = ' descripcion ' )
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     fecha = models.DateField(default=datetime.now)
+
     def __str__(self):
         return self.tipo
 
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['parcela'] = self.parcela.toJSON()
+        item['tipo'] = self.tipo.toJSON()
+        item['gasto'] = format(self.gasto, '.2f')
+        item['fecha'] = self.fecha.strftime('%Y-%m-%d')
+        # item['det'] = [i.toJSON() for i in self.detsale_set.all()]
+        return item
     class Meta:
         verbose_name = 'Trabajo'
         verbose_name_plural = 'Trabajos' 
         db_table = 'Trabajos'
         ordering = ['id']
+
 
 
 class Det_Trabajo ( models.Model ) :
@@ -149,8 +174,14 @@ class Det_Trabajo ( models.Model ) :
     precio = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     subtotal=models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
-        return self.trabajo
+        return self.quimico.name
 
+    def toJSON(self):
+        item = model_to_dict(self, exclude=['trabajo'])
+        # item['quimico'] = self.quimico.toJSON()
+        item['precio'] = format(self.precio, '.2f')
+        item['subtotal'] = format(self.subtotal, '.2f')
+        return item
     class Meta:
         verbose_name = 'Trabajo Stock'
         verbose_name_plural = 'Trabajo Stock' 

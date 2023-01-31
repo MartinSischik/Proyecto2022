@@ -8,7 +8,6 @@ from django.views.decorators.csrf import csrf_exempt
 from core.forms import TrabajoForm
 from core.mixins import ValidatePermissionRequiredMixin
 from django.views.generic import CreateView
-from django.db import transaction
 from core.models import *
 
 
@@ -61,35 +60,27 @@ class SaleCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Create
     def post(self, request, *args, **kwargs):
         data = {}
         try:
+            
             action = request.POST['action']
             if action == 'search_products':
                 data = []
                 prods = Quimico.objects.filter(name__icontains=request.POST['term'])[0:10]
                 for i in prods:
                     item = i.toJSON()
-                    #item['value'] = i.name
-                    item['text'] = i.nombre
+                    item['text'] = i.name
                     data.append(item)
-            # elif action == 'add':
-            #     with transaction.atomic():
-            #         vents = json.loads(request.POST['vents'])
-            #         sale = Sale()
-            #         sale.date_joined = vents['date_joined']
-            #         sale.cli_id = vents['cli']
-            #         sale.subtotal = float(vents['subtotal'])
-            #         sale.iva = float(vents['iva'])
-            #         sale.total = float(vents['total'])
-            #         sale.save()
-            #         for i in vents['products']:
-            #             det = DetSale()
-            #             det.sale_id = sale.id
-            #             det.prod_id = i['id']
-            #             det.cant = int(i['cant'])
-            #             det.price = float(i['pvp'])
-            #             det.subtotal = float(i['subtotal'])
-            #             det.save()
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Creación de un trabajo'
+        context['entity'] = 'Ventas'
+        context['list_url'] = self.success_url
+        context['action'] = 'add'
+        context['det'] = []
+        return context

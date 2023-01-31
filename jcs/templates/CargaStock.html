@@ -1,7 +1,7 @@
 {%extends 'templates/home.html'%}
 
 {% block content %}
-<form  method="post" action=".">
+<form  method="POST" >
                 <div class="page-header">
                   <h3 class="page-title">  </h3>
                 </div>
@@ -43,5 +43,37 @@
                 </div>
                 
 </form>
+<script>
+  $(function(){
+    $('select[name="procedencia"]').select2({
+      // theme:"bootstrap4",
+      language:"es",
+      language: 'es',
+allowClear: true,
+ajax: {
+delay: 250,
+type: 'POST',
+url: window.location.pathname,
+data: function (params) {
+    var queryParameters = {
+        term: params.term,
+        action: 'search_products'
+    }
+    return queryParameters;
+},
+processResults: function (data) {
+    return {
+        results: data
+    };
+},
+},
+placeholder: 'Ingrese una descripción',
+      // minimumInputLength: 1,
+    })
+    
 
+
+    
+  })
+</script>
   {% endblock %}

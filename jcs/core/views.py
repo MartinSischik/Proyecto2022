@@ -12,7 +12,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from login.views import *
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -34,6 +35,7 @@ def Inicio(request):
 
 
 # Quimico
+# @csrf_exempt
 class CargaQuimico(CreateView):
     model = Quimico
     form_class = QuimicoForm
@@ -41,9 +43,29 @@ class CargaQuimico(CreateView):
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
+    @method_decorator(csrf_exempt)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
     def dispatch(self, request, *args , **kwargs ) :
         return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            
+            action = request.POST['action']
+            if action == 'search_products':
+                data = []
+                prods = Proveedor.objects.filter(name__icontains=request.POST['term'])
+                for i in prods:
+                    item = i.toJSON()
+                    #item['value'] = i.name
+                    item['text'] = i.name
+                    data.append(item)
+            else:
+                data['error'] = 'No ha ingresado a ninguna opción'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)

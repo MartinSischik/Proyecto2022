@@ -1,4 +1,5 @@
 {%load static%}
+
 <script src="{%static 'assets/vendors/js/vendor.bundle.base.js'%}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
@@ -17,7 +18,8 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.13.1/api/sum().js"></script>
-    <!-- <script src="{%static 'vendor/select2/dist/js/select2.min.js'%}"></script> -->
+
+    
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
       $(document).ready(function () {
@@ -37,7 +39,11 @@
         $("#select1").select2();
         $("#select2").select2();
         $("#select3").select2();
-        $("#id_nombre").select2();
+
+        // $('select[name="search"]').select2({
+        // // theme:"bootstrap4",
+        // language:"es",
+        // })
       })
     </script>
     <script>

@@ -19,6 +19,10 @@ class CateQuimicoForm(ModelForm):
         }
 
 class QuimicoForm (ModelForm):
+    procedencia = ModelChoiceField(queryset=Proveedor.objects.none(), widget=Select(attrs={
+        'class': 'form-control select2',
+        'style': 'width: 100%'
+    }))
     class Meta:
         model = Quimico
         fields = '__all__'
@@ -26,7 +30,7 @@ class QuimicoForm (ModelForm):
                 
             }
         widgets = {
-            'nombre': TextInput(
+            'name': TextInput(
                 attrs= {'class':'form-control',
                         'placeholder':'Nombre',
                         
@@ -56,12 +60,18 @@ class QuimicoForm (ModelForm):
                         'id':'select2'
                 }
             ),
-            'procedencia': Select(
-                attrs= {'class':'form-control select2',
-                        'placeholder':'Procedencia',
+            'precio': TextInput(
+                attrs= {'class':'form-control ',
+                        'placeholder':'preio',
                         # 'id':'select3'
                 }
             ),
+            # 'procedencia': Select(
+            #     attrs= {'class':'form-control select2',
+            #             'placeholder':'Procedencia',
+            #             # 'id':'select3'
+            #     }
+            # ),
             
         }
 

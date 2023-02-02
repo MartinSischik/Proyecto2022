@@ -1,24 +1,31 @@
 {%extends 'templates/home.html'%}
 
-
+{%load static%}
+<link href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"/>
+<script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+<script src="{% static 'assets\funtions.js.js' %}"></script>
 {% block content %}
+<form method="post">
     <div class="page-header">
-      <h3 class="page-title"> {{title}} </h3>
+    <h3 class="page-title"> {{title}} </h3>
     </div>
-    
     <div class="row">
         <div class="col-lg-8 col-md-12">
             <div class="card">
                 <div class="card-header">
+                    
                     <h4 class="card-title"><i class="fa-solid fa-tractor"></i>Detalles</h4>
                     <div class="input-group">
                         <select name="search" class="form-control select2" style="width:100%;"  ></select>
                     </div>
                 </div>    
-            
+                
             
                 <div class="card-body">
-                    
+                    <button type="button" class="btn btn-danger btn-xs btn-flat btnRemoveAll">
+                        <i class="fas fa-trash"></i> Eliminar todos mis items
+                    </button>
+                    <!-- <hr> -->
                     <table id="tblProducts" class="table" >
                         <thead>
                         <tr>
@@ -34,26 +41,14 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-
-                            <th> </th>
-                            <th> </th>
-                            <th> </th>
-                            <th> </th>
-                            <th> </th>
-                            <th> </th>
-                            <th> </th>
-                        </tr>
-
                         </tbody>
                         </table>
                     
                 </div>
                 <div class="card-footer">
                     <div>
-                        <button type="submit" class="btn btn-primary mr-2">Aceptar</button>
-                        <button class="btn btn-dark">Cancel</button>
+                        <button type="submit" class="btn btn-primary mr-2"><i class="mdi mdi-content-save"></i>Guardar</button>
+                        <button class="btn btn-dark"><i class="mdi mdi-delete-forever"></i>Cancel</button>
                     </div>
                 </div>
             </div>
@@ -63,7 +58,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Datos de Trabajo</h4>
-            
+                <input type="hidden" name="action" value="{{ action }}">
                 <div class="form-group">
                     <label>fecha </label>
                     {{form.fecha}}
@@ -89,7 +84,7 @@
         </div>
         </div>
     </div>
-
+</form>
 <script>
 var valor = 1;
 var vents = {
@@ -104,12 +99,31 @@ var vents = {
         
 
     },
+    calculate_invoice: function () {
+        var subtotal = 0.00;
+        
+        $.each(this.items.products, function (pos, dict) {
+            // console.log(pos);
+            // console.log(dict);
+            dict.pos = pos;
+            dict.subtotal = dict.cantidad * parseFloat(dict.precio);
+            subtotal += dict.subtotal;
+        });
+        // console.log(subtotal);
+        this.items.subtotal = subtotal;
+        // this.items.iva = this.items.subtotal * iva;
+        // this.items.total = this.items.subtotal + this.items.iva;
+
+        $('input[name="gasto"]').val(this.items.subtotal.toFixed(2));
+        // $('input[name="ivacalc"]').val(this.items.iva.toFixed(2));
+        // $('input[name="total"]').val(this.items.total.toFixed(2));
+    },
     add: function (item) {
         this.items.products.push(item);
         this.list();
     },
     list: function () {
-        // this.calculate_invoice();
+        this.calculate_invoice();
         tblProducts = $('#tblProducts').DataTable({
             responsive: true,
             autoWidth: false,
@@ -147,7 +161,7 @@ var vents = {
                     class: 'text-center',
                     orderable: false,
                     render: function (data, type, row) {
-                        return '<input type="number" name="cantidad" class="form-control "  value="'+row.cantidad+'">';
+                        return '<input type="number" name="cantidad" class="form-control form-control-sm input-sm "  value="'+row.cantidad+'">';
                     }
                 },
                 {
@@ -159,15 +173,15 @@ var vents = {
                     }
                 },
             ],
-            // rowCallback(row, data, displayNum, displayIndex, dataIndex) {
+            rowCallback(row, data) {
+                console.log(row)
+                // $(row).find('input[name="cantidad"]').TouchSpin({
+                //     min: 1,
+                //     max: 1000000000,
+                //     step: 1
+                // });
 
-            //     $(row).find('input[name="cantidad"]').TouchSpin({
-            //         min: 1,
-            //         max: 1000000000,
-            //         step: 1
-            //     });
-
-            // },
+            },
             initComplete: function (settings, json) {
 
             }
@@ -177,11 +191,28 @@ var vents = {
 
 $(function(){
     
-    
+    // event submit
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+
+        if (vents.items.products.length === 0) {
+            message_error('Debe al menos tener un item en su detalle de venta');
+            return false;
+        }
+
+        vents.items.date_joined = $('input[name="fecha"]').val();
+        vents.items.cli = $('select[name="parcela"]').val();
+        var parameters = new FormData();
+        parameters.append('action', $('input[name="action"]').val());
+        parameters.append('vents', JSON.stringify(vents.items));
+        submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function () {
+            location.href = '/erp/sale/list/';
+        });
+    });
     $('select[name="search"]').select2({
                 // theme:"bootstrap4",
         language:"es",
-        language: 'es',
+        // language: 'es',
         allowClear: true,
         ajax: {
         delay: 250,
@@ -209,13 +240,95 @@ $(function(){
             var data = e.params.data;
             data.cantidad = 1;
             data.subtotal = data.cantidad*data.precio;
-            console.log(data);
+            // console.log(data);
             vents.add(data);
-            console.log(vents.products);
+            // console.log(vents.products);
             $(this).val('').trigger('change.select2');
+        })
+        .on('change', function () {
+            vents.calculate_invoice();
+        })
+    $('.btnRemoveAll').on('click', function () {
+        var cosa='¿Estas seguro de eliminar el producto de tu detalle?'
+        if (vents.items.products.length === 0) return false;
+        message_error(cosa)
+    });
+    $('#tblProducts tbody')
+    .on('click', 'a[rel="remove"]', function () {
+            var tr = tblProducts.cell($(this).closest('td, li')).index();
+            
+            alert_action('Notificación', '¿Estas seguro de eliminar el producto de tu detalle?', function () {
+                vents.items.products.splice(tr.row, 1);
+                vents.list();
+            });
+            
+        })
+    .on('change keyup', 'input[name="cantidad"]', function () {
+            console.log('x');
+            var cant = parseInt($(this).val());
+            console.log(cant);
+            var tr = tblProducts.cell($(this).closest('td, li')).index();
+            vents.items.products[tr.row].cantidad = cant;
+            vents.calculate_invoice();
+            $('td:eq(6)', tblProducts.row(tr.row).node()).html('$' + vents.items.products[tr.row].subtotal.toFixed(2));
         });
-})
+        
+});
 </script>
+<script>
+    $("input[name='hectareas']").TouchSpin({
+        min: 0,
+        max: 100,
+        step: 0.01,
+        decimals: 2,
+        boostat: 5,
+        maxboostedstep: 10,
+        postfix: ''
+    }).on('change', function () {
+        vents.calculate_invoice();
+    })
+</script>
+<script>
+function message_error(obj) {
+    var html = '';
+    if (typeof (obj) === 'object') {
+        html = '<ul style="text-align: left;">';
+        $.each(obj, function (key, value) {
+            html += '<li>' + key + ': ' + value + '</li>';
+        });
+        html += '</ul>';
+    } else {
+        html = '<p>' + obj + '</p>';
+    }
+    Swal.fire({
+        title: 'Error!',
+        html: html,
+        icon: 'error'
+    });
+}
+function submit_with_ajax(url, title, content, parameters, callback) {
 
+                    $.ajax({
+                        url: url, //window.location.pathname
+                        type: 'POST',
+                        data: parameters,
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                    }).done(function (data) {
+                        console.log(data);
+                        if (!data.hasOwnProperty('error')) {
+                            callback();
+                            return false;
+                        }
+                        message_error(data.error);
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(textStatus + ': ' + errorThrown);
+                    }).always(function (data) {
+
+                    });
+                }
+            
+</script>
 {% endblock %}
 

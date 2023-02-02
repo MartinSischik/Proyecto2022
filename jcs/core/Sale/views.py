@@ -1,3 +1,5 @@
+from gettext import translation
+import json
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.http import JsonResponse
@@ -69,6 +71,24 @@ class SaleCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Create
                     item = i.toJSON()
                     item['text'] = i.name
                     data.append(item)
+            elif action == 'add':
+                with translation.atomic():
+                    vents = json.loads(request.POST['vents'])
+                    sale = Trabajo()
+                    sale.date_joined = vents['date_joined']
+                    sale.cli_id = vents['cli']
+                    sale.subtotal = float(vents['subtotal'])
+                    sale.iva = float(vents['iva'])
+                    sale.total = float(vents['total'])
+                    sale.save()
+                    for i in vents['products']:
+                        det = DetSale()
+                        det.sale_id = sale.id
+                        det.prod_id = i['id']
+                        det.cant = int(i['cant'])
+                        det.price = float(i['pvp'])
+                        det.subtotal = float(i['subtotal'])
+                        det.save()
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:

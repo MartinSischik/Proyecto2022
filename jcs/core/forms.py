@@ -365,18 +365,19 @@ class TrabajoForm (ModelForm):
             'parcela': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Parcela',
-                        'id':'select1'
+                        'id':'select1',
+                        'style':"width:100%"
                         
                 }
             ),
             'tipo': Select(
                 attrs= {'class':'form-control',
                         'placeholder':'Chapa',
-                        'id':'select2'
-                        
+                        'id':'select2',
+                        'style':"width:100%",
                 }
             ),
-            'hectareas': NumberInput(
+            'hectareas': TextInput(
                 attrs= {'class':'form-control',
                         'placeholder':'Hectareas',
                         

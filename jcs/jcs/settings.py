@@ -43,8 +43,10 @@ INSTALLED_APPS = [
     'login',
     'widget_tweaks',
     
+    
 
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

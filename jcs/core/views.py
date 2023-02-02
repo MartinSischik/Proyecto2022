@@ -39,7 +39,7 @@ def Inicio(request):
 class CargaQuimico(CreateView):
     model = Quimico
     form_class = QuimicoForm
-    template_name = 'templates\Test.html'
+    template_name = 'templates\CargaStock.html'
     success_url = reverse_lazy('inicio')
 
     @method_decorator(login_required)
@@ -48,24 +48,24 @@ class CargaQuimico(CreateView):
     def dispatch(self, request, *args , **kwargs ) :
         return super().dispatch(request, *args, **kwargs)
     
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
+    # def post(self, request, *args, **kwargs):
+    #     data = {}
+    #     try:
             
-            action = request.POST['action']
-            if action == 'search_products':
-                data = []
-                prods = Proveedor.objects.filter(name__icontains=request.POST['term'])
-                for i in prods:
-                    item = i.toJSON()
-                    #item['value'] = i.name
-                    item['text'] = i.name
-                    data.append(item)
-            else:
-                data['error'] = 'No ha ingresado a ninguna opción'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data, safe=False)
+    #         action = request.POST['action']
+    #         if action == 'search_products':
+    #             data = []
+    #             prods = Proveedor.objects.filter(name__icontains=request.POST['term'])
+    #             for i in prods:
+    #                 item = i.toJSON()
+    #                 #item['value'] = i.name
+    #                 item['text'] = i.name
+    #                 data.append(item)
+    #         else:
+    #             data['error'] = 'No ha ingresado a ninguna opción'
+    #     except Exception as e:
+    #         data['error'] = str(e)
+    #     return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
@@ -118,7 +118,7 @@ class CatQuimiCreateview(CreateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Nueva Categoria de Agroquimico'
+        contexto['page_title']='Nueva Categoria de Stock'
         contexto['accion']='Crear'
         return contexto
 
@@ -135,7 +135,7 @@ class CatQuimiEditview(UpdateView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Editar Categoria de Agroquimico'
+        contexto['page_title']='Editar Categoria de Stock'
         contexto['accion']='Editar'
         return contexto
 
@@ -301,10 +301,10 @@ class CargaEntregas(CreateView):
     def post(self, request,*args,**kwargs):
         print(request.POST)
         det = Entregas()
-        grano=Grano.objects.get(id=request.POST.get('grano_id'))
+        grano=Quimico.objects.get(id=request.POST.get('grano_id'))
         form =EntregasForm(request.POST)
         form.save()
-        grano.stock = int(grano.stock) - int(request.POST.get('cantidad'))
+        grano.cantidad = int(grano.cantidad) - int(request.POST.get('cantidad'))
         grano.save()
         return HttpResponseRedirect(self.success_url)
         
@@ -326,23 +326,23 @@ class EditEntregas(UpdateView):
         det = Entregas.objects.get(pk=self.get_object().id)
         aux = pk
         aux2 = det.cantidad
-        grano2=Grano.objects.get(id=det.grano_id_id)
-        print(grano2.stock)
-        suma = grano2.stock + aux2
-        grano2.stock=suma
+        grano2=Quimico.objects.get(id=det.grano_id_id)
+        print(grano2.cantidad)
+        suma = grano2.cantidad + aux2
+        grano2.cantidad=suma
         grano2.save()
         print(aux2)
         print(suma)
         print('viejo')
-        print(grano2.stock)
+        print(grano2.cantidad)
         
-        grano=Grano.objects.get(id=request.POST.get('grano_id'))
+        grano=Quimico.objects.get(id=request.POST.get('grano_id'))
         det.cantidad=int(request.POST.get('cantidad'))
-        grano.stock =grano.stock- det.cantidad
-        print(grano2.nombre)
-        print(grano2.stock)
-        print(grano.nombre)
-        print(grano.stock)
+        grano.cantidad =grano.cantidad- det.cantidad
+        print(grano2.name)
+        print(grano2.cantidad)
+        print(grano.name)
+        print(grano.cantidad)
         grano.save()
         det.id=aux
 
@@ -373,10 +373,10 @@ class DeleteEntregas(DeleteView):
         det = Entregas.objects.get(pk=self.get_object().id)
         aux = pk
         aux2 = det.cantidad
-        grano2=Grano.objects.get(id=det.grano_id_id)
-        print(grano2.stock)
-        suma = grano2.stock + aux2
-        grano2.stock=suma
+        grano2=Quimico.objects.get(id=det.grano_id_id)
+        print(grano2.cantidad)
+        suma = grano2.cantidad + aux2
+        grano2.cantidad=suma
         grano2.save()
         det.delete()
 
@@ -385,7 +385,7 @@ class DeleteEntregas(DeleteView):
 
     def get_context_data(self, **kwargs):
         contexto=super().get_context_data(**kwargs)
-        contexto['page_title']='Eliminar Entregas'
+        contexto['page_title']='Estas seguro de eliminar esta entrega?'
         contexto['accion']='Eliminar'
         return contexto
 

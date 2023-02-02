@@ -87,13 +87,13 @@ class CateQuimico (models.Model):
 class Quimico ( models.Model ) :
     name = models.CharField ( max_length = 150 , verbose_name = ' Nombre ',unique=True )
     categoria =models.ForeignKey(CateQuimico,on_delete=models.CASCADE,null=True)
-    ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Ingrediente Activo ' )
+    ingrediente = models.CharField ( max_length = 10 , unique = True , verbose_name = ' Descripcion ' )
     cantidad = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     unidades =models.ForeignKey(Unidades,on_delete=models.CASCADE,null=True)
     procedencia =models.ForeignKey(Proveedor,on_delete=models.CASCADE)
     precio=models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.ingrediente}'
 
     
     def toJSON(self):
@@ -144,7 +144,7 @@ class Trabajo ( models.Model ) :
     parcela =models.ForeignKey(Parcelas,on_delete=models.CASCADE,null=True)
     tipo =models.ForeignKey(tipo_trabajo,on_delete=models.CASCADE,null=True)
     hectareas = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
-    descripcion = models.CharField ( max_length = 50 , unique = True , verbose_name = ' descripcion ' )
+    descripcion = models.CharField ( max_length = 50 ,  verbose_name = ' descripcion ' )
     gasto = models.DecimalField(default=0.00, max_digits=12,decimal_places=2)
     fecha = models.DateField(default=datetime.now)
 
@@ -183,9 +183,9 @@ class Det_Trabajo ( models.Model ) :
         item['subtotal'] = format(self.subtotal, '.2f')
         return item
     class Meta:
-        verbose_name = 'Trabajo Stock'
-        verbose_name_plural = 'Trabajo Stock' 
-        db_table = 'Trabajo Stock'
+        verbose_name = 'Trabajo Detalle'
+        verbose_name_plural = 'Trabajo Detalle' 
+        db_table = 'Trabajo Detalle'
         ordering = ['id']
 
 class camion ( models.Model ) :
@@ -221,7 +221,7 @@ class Entregas ( models.Model ) :
     id=models.AutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente,on_delete=models.CASCADE,null=True)
     camion_id =models.ForeignKey(camion,on_delete=models.CASCADE,null=True)
-    grano_id =models.ForeignKey(Grano,on_delete=models.CASCADE,null=True)
+    grano_id =models.ForeignKey(Quimico,on_delete=models.CASCADE,null=True)
     cantidad = models.IntegerField(default=0)
     fecha = models.DateField()
     

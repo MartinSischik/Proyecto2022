@@ -1,4 +1,6 @@
-from gettext import translation
+# from gettext import translation
+from django.db import transaction
+
 import json
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -72,21 +74,25 @@ class SaleCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Create
                     item['text'] = i.name
                     data.append(item)
             elif action == 'add':
-                with translation.atomic():
+                vents=request.POST['vents']
+                with transaction.atomic():
                     vents = json.loads(request.POST['vents'])
+                    # print(vents)
                     sale = Trabajo()
-                    sale.date_joined = vents['date_joined']
-                    sale.cli_id = vents['cli']
-                    sale.subtotal = float(vents['subtotal'])
-                    sale.iva = float(vents['iva'])
-                    sale.total = float(vents['total'])
+                    sale.fecha = vents['fecha']
+                    sale.parcela_id = vents['parcela']
+                    sale.gasto = float(vents['gasto'])
+                    sale.hectareas = float(vents['hectareas'])
+                    sale.tipo_id = vents['tipo']
+                    sale.descripcion = vents['descripcion']
+
                     sale.save()
                     for i in vents['products']:
-                        det = DetSale()
-                        det.sale_id = sale.id
-                        det.prod_id = i['id']
-                        det.cant = int(i['cant'])
-                        det.price = float(i['pvp'])
+                        det = Det_Trabajo()
+                        det.trabajo_id = sale.id
+                        det.quimico_id =i['id']
+                        det.cantidad = int(i['cantidad'])
+                        det.precio = float(i['precio'])
                         det.subtotal = float(i['subtotal'])
                         det.save()
             else:

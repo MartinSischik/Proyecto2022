@@ -19,10 +19,10 @@ class CateQuimicoForm(ModelForm):
         }
 
 class QuimicoForm (ModelForm):
-    procedencia = ModelChoiceField(queryset=Proveedor.objects.none(), widget=Select(attrs={
-        'class': 'form-control select2',
-        'style': 'width: 100%'
-    }))
+    # procedencia = ModelChoiceField(queryset=Proveedor.objects.none(), widget=Select(attrs={
+    #     'class': 'form-control select2',
+    #     'style': 'width: 100%'
+    # }))
     class Meta:
         model = Quimico
         fields = '__all__'
@@ -44,7 +44,7 @@ class QuimicoForm (ModelForm):
             ),
             'ingrediente': TextInput(
                 attrs= {'class':'form-control',
-                        'placeholder':'Ingrediente',
+                        'placeholder':'Descripcion',
                         
                 }
             ),
@@ -66,12 +66,12 @@ class QuimicoForm (ModelForm):
                         # 'id':'select3'
                 }
             ),
-            # 'procedencia': Select(
-            #     attrs= {'class':'form-control select2',
-            #             'placeholder':'Procedencia',
-            #             # 'id':'select3'
-            #     }
-            # ),
+            'procedencia': Select(
+                attrs= {'class':'form-control select2',
+                        'placeholder':'Procedencia',
+                        'id':'select3'
+                }
+            ),
             
         }
 
@@ -353,7 +353,7 @@ class ProduccionForm (ModelForm):
         }
 
 class TrabajoForm (ModelForm):
-    nombre=ModelChoiceField(queryset=Quimico.objects.none(),widget=Select(attrs={'class':'form-control select2','style':'width 100%'}))
+    # nombre=ModelChoiceField(queryset=Quimico.objects.none(),widget=Select(attrs={'class':'form-control select2','style':'width 100%'}))
     class Meta:
         model = Trabajo
         fields = '__all__'
@@ -372,7 +372,7 @@ class TrabajoForm (ModelForm):
             ),
             'tipo': Select(
                 attrs= {'class':'form-control',
-                        'placeholder':'Chapa',
+                        'placeholder':'',
                         'id':'select2',
                         'style':"width:100%",
                 }

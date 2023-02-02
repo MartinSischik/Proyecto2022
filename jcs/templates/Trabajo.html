@@ -71,6 +71,10 @@
                     <label>Tipo de trabajo</label>
                     {{form.tipo}}
                 </div>
+                <div class="form-group" >
+                    <label>Descripcion</label>
+                    {{form.descripcion}}
+                </div>
                 <div class="form-group">
                     <label>Hectareas</label>
                     {{form.hectareas}}
@@ -79,6 +83,7 @@
                     <label>Total</label>
                     {{form.gasto}}
                 </div>
+                
             
             </div>
         </div>
@@ -91,7 +96,7 @@ var vents = {
     items: {
         parcela: '',
         tipo:'',
-        hectareas: 0,
+        hectareas: 0.00,
         descripcion:'',
         gasto: 0.00,
         fecha: '',
@@ -110,11 +115,11 @@ var vents = {
             subtotal += dict.subtotal;
         });
         // console.log(subtotal);
-        this.items.subtotal = subtotal;
+        this.items.gasto = subtotal;
         // this.items.iva = this.items.subtotal * iva;
         // this.items.total = this.items.subtotal + this.items.iva;
 
-        $('input[name="gasto"]').val(this.items.subtotal.toFixed(2));
+        $('input[name="gasto"]').val(this.items.gasto.toFixed(2));
         // $('input[name="ivacalc"]').val(this.items.iva.toFixed(2));
         // $('input[name="total"]').val(this.items.total.toFixed(2));
     },
@@ -174,7 +179,6 @@ var vents = {
                 },
             ],
             rowCallback(row, data) {
-                console.log(row)
                 // $(row).find('input[name="cantidad"]').TouchSpin({
                 //     min: 1,
                 //     max: 1000000000,
@@ -199,14 +203,18 @@ $(function(){
             message_error('Debe al menos tener un item en su detalle de venta');
             return false;
         }
-
-        vents.items.date_joined = $('input[name="fecha"]').val();
-        vents.items.cli = $('select[name="parcela"]').val();
+        vents.items.tipo = $('select[name="tipo"]').val();
+        vents.items.descripcion = $('input[name="descripcion"]').val();
+        vents.items.fecha = $('input[name="fecha"]').val();
+        vents.items.parcela = $('select[name="parcela"]').val();
+        vents.items.hectareas = $('input[name="hectareas"]').val();
+        vents.items.gasto = $('input[name="gasto"]').val();
         var parameters = new FormData();
         parameters.append('action', $('input[name="action"]').val());
         parameters.append('vents', JSON.stringify(vents.items));
         submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function () {
-            location.href = '/erp/sale/list/';
+            location.href = '../../inicio/';
+            // location.href = '';
         });
     });
     $('select[name="search"]').select2({
@@ -235,24 +243,31 @@ $(function(){
         placeholder: 'Ingrese una descripción',
         minimumInputLength: 1,
         })
+
         .on('select2:select', function (e) {
             
             var data = e.params.data;
             data.cantidad = 1;
-            data.subtotal = data.cantidad*data.precio;
+            data.subtotal = 0.00;
+            // data.subtotal = data.cantidad*data.precio;
             // console.log(data);
             vents.add(data);
             // console.log(vents.products);
             $(this).val('').trigger('change.select2');
         })
+
         .on('change', function () {
             vents.calculate_invoice();
         })
+
+
     $('.btnRemoveAll').on('click', function () {
         var cosa='¿Estas seguro de eliminar el producto de tu detalle?'
         if (vents.items.products.length === 0) return false;
         message_error(cosa)
     });
+
+
     $('#tblProducts tbody')
     .on('click', 'a[rel="remove"]', function () {
             var tr = tblProducts.cell($(this).closest('td, li')).index();
@@ -263,10 +278,10 @@ $(function(){
             });
             
         })
+
     .on('change keyup', 'input[name="cantidad"]', function () {
-            console.log('x');
+
             var cant = parseInt($(this).val());
-            console.log(cant);
             var tr = tblProducts.cell($(this).closest('td, li')).index();
             vents.items.products[tr.row].cantidad = cant;
             vents.calculate_invoice();
@@ -279,8 +294,8 @@ $(function(){
     $("input[name='hectareas']").TouchSpin({
         min: 0,
         max: 100,
-        step: 0.01,
-        decimals: 2,
+        step: 0.5,
+        decimals: 1,
         boostat: 5,
         maxboostedstep: 10,
         postfix: ''
@@ -316,7 +331,7 @@ function submit_with_ajax(url, title, content, parameters, callback) {
                         processData: false,
                         contentType: false,
                     }).done(function (data) {
-                        console.log(data);
+
                         if (!data.hasOwnProperty('error')) {
                             callback();
                             return false;

@@ -1,6 +1,9 @@
 from datetime import datetime
 from django.db import models
 from django.forms import model_to_dict
+from crum import get_current_user
+
+from core.auditoria import BaseModel
 # Create your models here.
 
 
@@ -70,14 +73,25 @@ class Unidades (models.Model):
         verbose_name_plural = 'Unidades' 
         ordering = ['id']
 
-class CateQuimico (models.Model):
+class CateQuimico (BaseModel):
     nombre = models.CharField ( max_length = 150 , verbose_name = ' CategoriaQ ', null=True)
     def __str__(self):
         return self.nombre
+    
+    def save(self,force_insert=False,force_update=False,using=None,update_fields=None):
+        user = get_current_user()
+        if user is not None:
+            if not self.pk:
+                self.user_creation = user
+            else:
+                self.user_updated=user
+
+        super(CateQuimico,self).save()
         
     def toJSON(self):
         item = model_to_dict(self)
         return item
+    
     class Meta:
         verbose_name = 'Categoria'
         verbose_name_plural = 'Categorias' 
@@ -223,7 +237,7 @@ class Entregas ( models.Model ) :
     camion_id =models.ForeignKey(camion,on_delete=models.CASCADE,null=True)
     grano_id =models.ForeignKey(Quimico,on_delete=models.CASCADE,null=True)
     cantidad = models.IntegerField(default=0)
-    fecha = models.DateField()
+    fecha = models.DateField(default=datetime.now)
     
     
     def __str__(self):

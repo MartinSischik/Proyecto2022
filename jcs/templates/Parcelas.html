@@ -23,7 +23,7 @@
                             <th>Nombre </th>
                             <th>Ubicacion </th>
                             <th>Hectareas </th>
-                            <th>Trabbajos realizados</th>
+
                             <th>Gastos </th>
                             <th>Opciones </th>
                           </tr>
@@ -35,7 +35,7 @@
                             <td>{{lista.nombre}}</td>
                             <td>{{lista.ubicacion}}</td>
                             <td> {{lista.hectareas}}</td>
-                            <td> {{lista.trabajos}}</td>
+
                             <td> {{lista.gasto | stringformat:".2f"}} usd</td>
                             <td>
                               <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>

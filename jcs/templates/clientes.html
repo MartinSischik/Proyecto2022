@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="page-header">
-      <h3 class="page-title"> Stock </h3>
+      <h3 class="page-title"> Clientes </h3>
     </div>
     <div class="row">
     <div class="col-12 grid-margin stretch-card">
@@ -46,131 +46,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Proveedores</h4>
-          <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Proveedor</a>
-          <div class="row">
-            <div class="col-12">
-              <div class=" card-body table-responsive">  
-                    <table id="tabla1" class="table" >
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Nombre </th>
-                      <th>Telefono </th>
-                      <th>Ruc</th>
-                      <th>Email</th>
-                      <th>Opciones </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for cosa in proveedores_contexto %}
-                    <tr>
-                      <td> {{cosa.id}} </td>
-                      <td>{{cosa.nombre}}</td>
-                      <td> {{cosa.telefono}}</td>
-                      <td> {{cosa.ruc}} </td>
-                      <td> {{cosa.email}} </td>
-                      <td>
-                        <a href="" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a  href="type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                  </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     
-      <!-- <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Proveedores</h4>
-          <a type="button" href="{% url 'CargaCamion'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Camion</a>
-          <div class="row">
-            <div class="col-12">
-              <div class=" card-body table-responsive">  
-                    <table id="tabla2" class="table" >
-                  <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre </th>
-                        <th>Telefono </th>
-                        <th>Ruc</th>
-                        <th>Email Kg</th>
-                        <th>Opciones </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for lista in listatabla2 %}
-                    <tr>
-                        <td> {{lista.id}} </td>
-                        <td>{{lista.nombre}}</td>
-                        <td> {{lista.telefono}}</td>
-                        <td> {{lista.ruc}} Kg</td>
-                        <td> {{lista.email}} Kg</td>
-                      <td>
-                        <a href="{% url 'EditCamion' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a  href="{% url 'DeleteCamion' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                  </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    
-
-  <div class="col-lg-6 col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Entregas</h4>
-        <a type="button" href="{% url 'CargaEntregas'  %}" class="btn btn-outline-secondary btn-fw">Nueva Entrega</a>
-        <div class="row">
-          <div class="col-12">
-            <div class=" card-body table-responsive">  
-                  <table id="tabla3" class="table" >
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Cliente </th>
-                    <th>Producto </th>
-                    <th>Cantidad</th>
-                    <th>Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for lista in listatabla3 %}
-                  <tr>
-                    <td> {{lista.id}} </td>
-                    <td>{{lista.cliente}}</td>
-                    <td> {{lista.grano_id}} </td>
-                    <td>{{lista.cantidad}}</td>
-                    <td>
-                      <a href="{% url 'EditEntregas' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                      <a  href="{% url 'DeleteEntregas' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>
 
 {% endblock %}

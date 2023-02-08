@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'core',
     'login',
     'widget_tweaks',
-    
-    
+    'auditlog',
+    'usuario'
+
+
 
 ]
 
@@ -57,7 +59,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crum.CurrentRequestUserMiddleware',
-    
+    'auditlog.middleware.AuditlogMiddleware',
+
 ]
 
 ROOT_URLCONF = 'jcs.urls'
@@ -127,9 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-LOGIN_REDIRECT_URL= reverse_lazy('inicio')
+LOGIN_REDIRECT_URL = reverse_lazy('inicio')
 LOGIN_URL = reverse_lazy('login')
+NUEVO_URL = reverse_lazy('ErrorUsuario')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+AUTH_USER_MODEL = 'usuario.User'

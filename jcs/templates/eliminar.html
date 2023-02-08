@@ -15,11 +15,10 @@
                         <div class="alert">
                           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                           El Registro no puede ser borrado porque contiene datos sobre el camion utilizado en una entrega existente.
-                            
                           </div>
                         {% endif %}
                         <div class="alert alert-danger" role="alert">
-                            Estas seguro de eliminar el registro <a href="#" class="alert-link">{{ object.nombre }}</a> ?
+                            Estas seguro de eliminar   <a href="#" class="alert-link">{{ object.nombre }} {{ object.name }}{{ entity }} {{ nombre }}</a> ?
                         </div>
                           <button type="submit" class="btn btn-primary mr-2">Aceptar</button>
                           <button href="{{ list_url }}"class="btn btn-dark">Cancel</button>

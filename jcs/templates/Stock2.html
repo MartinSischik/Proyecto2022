@@ -54,8 +54,8 @@
       <div class="col-lg-6 col-md-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Agroquimicos</h4>
-          <a type="button" href="{% url 'CargaQuimico'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Agroquimico</a>
+            <h4 class="card-title">Stock</h4>
+          <a type="button" href="{% url 'CargaQuimico'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Stock</a>
           <div class="row">
             <div class="col-12">
             <div class="text-secondary">
@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6 col-md-12">
+    <!-- <div class="col-lg-6 col-md-12">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Granos</h4>
@@ -107,7 +107,7 @@
                     <table id="tabla3" class="table" >
                   <thead>
                     <tr>
-                      <!-- <th>Id</th> -->
+                      <th>Id</th>
                       <th>Nombre </th>
                       <th>Variedad </th>
                       <th>Procedencia</th>
@@ -118,7 +118,7 @@
                   <tbody>
                     {% for lista in listatabla2 %}
                     <tr>
-                      <!-- <td> {{lista.id}} </td> -->
+                      <td> {{lista.id}} </td>
                       <td>{{lista.nombre}}</td>
                       <td> {{lista.variedad}}</td>
                       <td> {{lista.Procedencia}}</td>
@@ -136,12 +136,12 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     
     <div class="col-lg-6 col-md-12">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Categoria de Quimicos</h4>
+          <h4 class="card-title">Categoria de Stock</h4>
           <a type="button" href="{% url 'CargaCateQui'  %}" class="btn btn-outline-secondary btn-fw">Nueva Categoria</a>
           <div class="row">
             <div class="col-12">

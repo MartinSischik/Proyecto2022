@@ -1,0 +1,122 @@
+{%extends 'templates/home.html'%}
+{%load static%}
+<link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+<script src="{% static 'lib/select2-4.0.13/js/select2.min.js' %}"></script>
+<script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+<script src="{% static 'user/js/form.js' %}"></script>
+{% block content %}
+<form  method="POST" >
+                <div class="page-header">
+                  <h3 class="page-title">  </h3>
+                </div>
+                <div class="row">
+                  <div class="col-12 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="{{ action }}">
+                        <h4 class="card-title">{{page_title}}</h4>
+                        {% if form.errors %}
+                        <div class="alert">
+                          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                          Ha ocurrido un error.
+                            <ul>
+                              {%for field in form %}
+                                {%for error in field.errors %}
+                                  <li>{{field.label}}:{{error}}</li>
+                                {% endfor %}
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        {% endif %}
+
+
+                        {%for field in form.visible_fields %}
+              
+                        <div class="form-group">
+                          <label for="exampleInputUsername1">{{field.label}}</label>
+                        {{ field }}
+                        </div>
+                        {% endfor %}
+                          <div>
+                          <button type="submit" class="btn btn-primary mr-2">Aceptar</button>
+                          <button class="btn btn-dark">Cancel</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+</form>
+
+<script>
+  function message_error(obj) {
+      var html = '';
+      if (typeof (obj) === 'object') {
+          html = '<ul style="text-align: left;">';
+          $.each(obj, function (key, value) {
+              html += '<li>' + key + ': ' + value + '</li>';
+          });
+          html += '</ul>';
+      } else {
+          html = '<p>' + obj + '</p>';
+      }
+      Swal.fire({
+          title: 'Error!',
+          html: html,
+          icon: 'error'
+      });
+  }
+  function submit_with_ajax(url, title, content, parameters, callback) {
+
+      $.ajax({
+          url: url, //window.location.pathname
+          type: 'POST',
+          data: parameters,
+          dataType: 'json',
+          processData: false,
+          contentType: false,
+      }).done(function (data) {
+
+          if (!data.hasOwnProperty('error')) {
+              callback();
+              return false;
+          }
+          message_error(data.error);
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+          alert(textStatus + ': ' + errorThrown);
+      }).always(function (data) {
+
+      });
+  }
+
+</script>
+
+<script>
+  {% if form.errors %}
+      var errors = '';
+      {% for field in form %}
+          {% for error in field.errors %}
+              errors += '{{ error }}\n';
+          {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+          errors += '{{ error }}\n';
+      {% endfor %}
+      Swal.fire({
+          title: 'Error!',
+          text: errors,
+          icon: 'error'
+      });
+  {% endif %}
+
+  $('form').on('submit', function (e) {
+      e.preventDefault();
+      var parameters = new FormData(this);
+      submit_with_ajax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar la siguiente acción?', parameters, function () {
+          location.href = '{{ list_url }}';
+      });
+  });
+</script>
+  {% endblock %}

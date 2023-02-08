@@ -1,0 +1,108 @@
+{%extends 'templates/home.html'%}
+
+{% block content %}
+    <div class="page-header">
+      <h3 class="page-title"> <i class="fa-solid fa-tractor"></i> Trabajos  </h3>
+    </div>
+    
+    <div class="row">
+      
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title"></h4>
+            <div class="col-md-3">
+              <a type="button" href="{% url 'SaleCreateView'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Trabajo</a>
+
+              </div>
+          <div class="row">
+            <div class="col-12">
+            <div class="text-secondary">
+              <div class="card-body table-responsive">  
+                    <table id="produccion" class="table" >
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Parcela</th>
+                      <th>Tipo </th>
+                      <th>Encargado </th>
+                      <th>Hectareas </th>
+                      <th>Descripcion</th>
+                      <th>Gastos </th>
+                      <th>Fecha </th>
+                      <th>Detalles </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for lista in listatabla1 %}
+                    <tr>
+                      <td> {{lista.id}} </td>
+                      <td>{{lista.parcela}}</td>
+                      <td>{{lista.tipo}}</td>
+                      <td> {{lista.empleado}}</td>
+                      <td> {{lista.hectareas}} ha.</td>
+                      <td>{{lista.descripcion}}</td>
+                      <td>{{lista.gasto}}</td>
+                      <td> {{lista.fecha}}</td>
+                      <!-- <td> </td> -->
+                      <td>
+                        <!-- <a href="" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a> -->
+                        <a href="{% url 'ListaDetalleTrabajo' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-magnifying-glass"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                  </table>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+  $(document).ready(function(){
+      var tabla = $("#produccion").DataTable({
+              
+              "drawCallback":function(){
+                    //alert("La tabla se está recargando"); 
+                    var api = this.api();
+                    $(api.column(6).footer()).html(
+                        'Total: '+api.column(6, {page:'current'}).data().sum()+' usd'
+                    )
+                    // $(api.column(3).footer()).html(
+                    //     ''+api.column(3, {page:'current'}).data().sum()+' kg/ha'
+                    // )
+                    // $(api.column(4).footer()).html(
+                    //     ''+api.column(4, {page:'current'}).data().sum()+' kg/ha'
+                    // )
+              },
+  //             "columnDefs": [
+  //   { targets : [ 4 ], data:  function ( row, type, val, meta ) {
+  //       str = parseInt(row[2],10) / parseInt(row[3],10)+' kg'
+  //       return str ;
+  //       }
+  //    } 
+  // ]  
+              
+      });
+  });
+  
+    </script>
+{% endblock %}
+

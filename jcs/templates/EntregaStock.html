@@ -104,48 +104,7 @@
     
 
   
-  <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Granos</h4>
-        <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
-        <div class="row">
-          <div class="col-12">
-            <div class=" card-body table-responsive">  
-                  <table id="tabla1" class="table" >
-                <thead>
-                  <tr>
-                    <!-- <th>Id</th> -->
-                    <th>Nombre </th>
-                    <th>Variedad </th>
-                    <th>Procedencia</th>
-                    <th>Cantidad Kg</th>
-                    <th>Opciones </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for lista in listatabla1 %}
-                  <tr>
-                    <!-- <td> {{lista.id}} </td> -->
-                    <td>{{lista.nombre}}</td>
-                    <td> {{lista.variedad}}</td>
-                    <td> {{lista.Procedencia}}</td>
-                    <td> {{lista.stock}} Kg</td>
-                    <td>
-                      <a href="{% url 'EditGrano' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                      <a  href="{% url 'DeleteGrano' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  
 
 {% endblock %}
 

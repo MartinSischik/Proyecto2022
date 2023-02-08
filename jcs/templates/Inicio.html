@@ -1,231 +1,185 @@
 {%extends 'templates/home.html'%}
 
 {% block content %}
-    <div class="page-header">
-      <h3 class="page-title"> Inicio </h3>
-    </div>
-    
-    <div class="row">
-      <div class="col-lg-6 col-md-12">
-        <div class="card">
-          <div class="card-header">
-                    
-            <h4 class="card-title">Parcelas</h4>
-            <div class="row">
-              <div class="col-md-3">
-              <a type="button" href="{% url 'CargaParcela'  %}" class="btn btn-outline-secondary btn-fw">Nueva Parcela</a>
+<div class="page-header">
+  <h3 class="page-title"> Inicio </h3>
+</div>
 
-              </div>
-              <div class="col-md-3">
-              <a type="button" href="{% url 'Parcela'  %}" class="btn btn-outline-secondary btn-fw">Mas informacion</a>
+<div class="row">
+  <div class="col-lg-5 col-md-12">
+    <div class="card">
+      <div class="card-header">
 
-              </div>
-              <div class="col-md-3">
-              <a type="button" href="{% url 'SaleCreateView'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Trabajo</a>
+        <h4 class="card-title">Parcelas</h4>
+        <div class="row">
+          <div class="col-md-3">
+            <a type="button" href="{% url 'CargaParcela'  %}" class="btn btn-outline-secondary btn-fw">Nueva Parcela</a>
 
-              </div>
-            </div>
-            
-            
-            
-        </div>    
-          <div class="card-body">
-            
-            <div class="row">
-              <div class="col-12">
-                <div class="text-secondary">
-                  <div class="card-body table-responsive">  
-                        <table id="tabla1" class="table" >
-                      <thead>
-                        <tr>
-                          <!-- <th>Id</th> -->
-                          <th>Nombre </th>
-                          <th>Ubicacion </th>
-                          <th>Hectareas </th>
-                          <!-- <th>Trabbajos realizados</th>
-                          <th>Gastos </th> -->
-                          <th>Opciones </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for lista in listatabla4 %}
-                        <tr>
-                          <!-- <td> {{lista.id}} </td> -->
-                          <td>{{lista.nombre}}</td>
-                          <td>{{lista.ubicacion}}</td>
-                          <td> {{lista.hectareas}}</td>
-                          <!-- <td> {{lista.trabajos}}</td>
-                          <td> {{lista.gasto}}</td> -->
-                          <td>
-                            <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="{% url 'DeleteParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                    </tfoot>
-                      </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="col-md-3">
+            <a type="button" href="{% url 'Parcela'  %}" class="btn btn-outline-secondary btn-fw">Mas informacion</a>
+
+          </div>
+          <div class="col-md-3">
+            <a type="button" href="{% url 'SaleCreateView'  %}" class="btn btn-outline-secondary btn-fw">Nuevo
+              Trabajo</a>
+
+          </div>
+          <div class="col-md-3">
+            <a type="button" href="{% url 'ListaTrabajo'  %}" class="btn btn-outline-secondary btn-fw">Lista de
+              Trabajos</a>
+
           </div>
         </div>
+
+
+
       </div>
-      <div class="col-lg-6 col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Produccion</h4>
-          <a type="button" href="{% url 'CargaProduccion'  %}" class="btn btn-outline-secondary btn-fw">Nueva Cosecha</a>
-          <div class="container">
-            <div class="row">
-                <div class="card-body table-responsive">
-                    <table id="produccion" class="table" style="width:100%">
-                      
-                        <thead>
-                          <tr>
-                            <!-- <th>Id</th> -->
-                            <th>Parcela </th>
-                            <th>Producto </th>
-                            <th>Cantidad  </th>
-                            <th>Fecha</th>
-                            <th>Opciones </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {% for lista in listatabla1 %}
-                          <tr>
-                            <!-- <td> {{lista.id}} </td> -->
-                            <td>{{lista.parcela}}</td>
-                            <td>{{lista.producto}}</td>
-                            <td> {{lista.cantidad}}Kg</td>
-                            <td> {{lista.fecha}}</td>
-                            <td>
-                              <!-- <a href="{% url 'EditProduccion' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a> -->
-                              <a href="{% url 'DeleteProduccion' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                          </tr>
-                          {% endfor %}
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              
-                          </tr>
-                      </tfoot>
-                    </table> 
-                </div>
-            </div>
-        </div>
-          
-        </div>
-        
-        </div>
-    </div>
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Granos</h4>
-          <!-- <span id="result"></span> in total -->
-          <a type="button" href="{% url 'CargaGrano'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Grano</a>
-          <div class="row">
-            <div class="col-12">
-              <div class=" card-body table-responsive">  
-                    <table id="tabla3" class="table" >
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="text-secondary">
+              <div class="card-body table-responsive">
+                <table id="tabla1" class="table">
                   <thead>
                     <tr>
                       <!-- <th>Id</th> -->
                       <th>Nombre </th>
-                      <th>Variedad </th>
-                      <th>Procedencia</th>
-                      <th>Cantidad Kg</th>
+                      <th>Ubicacion </th>
+                      <th>Hectareas </th>
+                      <!-- <th>Trabbajos realizados</th>
+                          <th>Gastos </th> -->
                       <th>Opciones </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for lista in listatabla2 %}
+                    {% for lista in listatabla4 %}
                     <tr>
                       <!-- <td> {{lista.id}} </td> -->
                       <td>{{lista.nombre}}</td>
-                      <td> {{lista.variedad}}</td>
-                      <td> {{lista.Procedencia}}</td>
-                      <td> {{lista.stock}} </td>
+                      <td>{{lista.ubicacion}}</td>
+                      <td> {{lista.hectareas}} ha</td>
+                      <!-- <td> {{lista.trabajos}}</td>
+                          <td> {{lista.gasto}}</td> -->
                       <td>
-                        <a href="{% url 'EditGrano' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a  href="{% url 'DeleteGrano' lista.id %}"type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
+                        <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i
+                            class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="{% url 'DeleteParcela' lista.id %}" type="button" class="btn .btn-sm"><i
+                            class="fa-solid fa-trash"></i></a>
                       </td>
                     </tr>
                     {% endfor %}
                   </tbody>
-                  </table>
+                  <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      
+
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
-    <!--  
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Categoria de Quimicos</h4>
-          <a type="button" href="{% url 'CargaCateQui'  %}" class="btn btn-outline-secondary btn-fw">Nueva Categoria</a>
+  </div>
+  <div class="col-lg-7 col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Produccion</h4>
+        <a type="button" href="{% url 'CargaProduccion'  %}" class="btn btn-outline-secondary btn-fw">Nueva Produccion</a>
+        <div class="container">
           <div class="row">
-            <div class="col-12">
-              <div class=" card-body table-responsive">  
-                    <table id="tabla4" class="table" >
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Nombre </th>
-                      <th>Opciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for lista in listatabla3 %}
-                    <tr>
-                      <td> {{lista.id}} </td>
-                      <td>{{lista.nombre}}</td>
-                      <td>
-                      <a href="{% url 'CatQuimiEditview' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                      <a href="{% url 'DeleteQuimiCate' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                  </table>
-              </div>
+            <div class="card-body table-responsive">
+              <table id="produccion" class="table" style="width:100%">
+                <thead>
+                  <tr>
+                    <!-- <th>Id</th> -->
+                    <th>Parcela </th>
+                    <th>Producto </th>
+                    <th>Cantidad </th>
+                    <th>hectareas </th>
+                    <th>Promedio</th>
+                    <th>Fecha</th>
+                    <th>Opciones </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for lista in listatabla1 %}
+                  <tr>
+                    <!-- <td> {{lista.id}} </td> -->
+                    <td>{{lista.parcela}}</td>
+                    <td>{{lista.producto}}</td>
+                    <td> {{lista.cantidad}} Kg</td>
+                    <td>{{lista.parcela.hectareas}} ha</td>
+                    <td></td>
+                    <td> {{lista.fecha}}</td>
+                    <td>
+                      <!-- <a href="{% url 'EditProduccion' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a> -->
+                      <a href="{% url 'DeleteProduccion' lista.id %}" type="button" class="btn .btn-sm"><i
+                          class="fa-solid fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                      <td></td>
+
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </div>
         </div>
+
       </div>
-    </div> -->
+
     </div>
-<!-- <script>
-  var resultado = document.getElementById("tabla3"),sumVal=0;
-  
-  for(var i=1;i<table.rows.length;i++ )
-  {
-    sumVal = sumVal+parseInt( table.rows[i].cells[4].innerHTML);
-  }
-  console.log(sumVal);
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+      var tabla = $("#produccion").DataTable({
+              
+              "drawCallback":function(){
+                    //alert("La tabla se está recargando"); 
+                    var api = this.api();
+                    $(api.column(2).footer()).html(
+                        'Total: '+api.column(2, {page:'current'}).data().sum()+' Kg'
+                    )
+                    $(api.column(3).footer()).html(
+                        ''+api.column(3, {page:'current'}).data().sum()+' kg/ha'
+                    )
+                    $(api.column(4).footer()).html(
+                        ''+api.column(4, {page:'current'}).data().sum()+' kg/ha'
+                    )
+              },
+              "columnDefs": [
+    { targets : [ 4 ], data:  function ( row, type, val, meta ) {
+        str = parseInt(row[2],10) / parseInt(row[3],10)+' kg'
+        return str ;
+        }
+     } 
+  ]  
+              
+      });
+  });
 
-
-</script> -->
+  </script>
 
 
 
 {% endblock %}
-

@@ -1,0 +1,68 @@
+{%extends 'templates/home.html'%}
+
+{% block content %}
+    <div class="page-header">
+      <h3 class="page-title"> Stock </h3>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Cambios</h4>
+            <form method="POST">
+              {% csrf_token %}
+            <button type="submit" class="btn btn-primary mr-2"><i
+              class="fa-solid fa-trash"></i>Eliminar todos los registros</button>
+            </form>
+          <div class="col-12">
+            <div class="row">
+                <div class="card-body table-responsive">
+                    <table id="tabla1" class="table" style="width:100%">
+                      
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Id del objeto </th>
+                            <th>Representacion </th>
+                            <th>Cambios </th>
+                            <th>Actor </th>
+                            <th>Fecha </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for lista in listatabla4 %}
+                          <tr>
+                            <td> {{lista.id}} </td>
+                            <td> {{lista.object_pk}} </td>
+                            <td>{{lista.object_repr}}</td>
+                            <td>{{lista.changes}}</td>
+                            <td> {{lista.actor}}</td>
+                            <td>{{lista.timestamp}}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              
+                          </tr>
+                      </tfoot>
+                    </table> 
+                </div>
+            </div>
+        </div>
+          
+        </div>
+        
+        </div>
+    </div>
+    </div>
+{% endblock %}
+

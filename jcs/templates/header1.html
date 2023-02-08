@@ -10,12 +10,12 @@
         <div class="profile-desc">
           <div class="profile-pic">
             <div class="count-indicator">
-              <img class="img-xs rounded-circle " src="{%static 'assets/images/faces/face15.jpg'%}" alt="">
+              <img class="img-xs rounded-circle" src="{%static 'assets/images/faces-clipart/pic-8.png'%}" alt="">
               <span class="count bg-success"></span>
             </div>
             <div class="profile-name">
-              <h5 class="mb-0 font-weight-normal">{{user.username}}</h5>
-              <span>Minecraft Java</span>
+              <h5 class="mb-0 font-weight-normal">{{request.user.username}}</h5>
+              <!-- <span class="badge badge-success">{{request.user.groups.groupname}}</span> -->
             </div>
           </div>
           <!-- <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a> -->
@@ -83,6 +83,14 @@
         </div>
       </li> -->
       <li class="nav-item menu-items">
+        <a class="nav-link" href="/jcs/ListaTrabajo ">
+          <span class="menu-icon">
+            <i class="fa-solid fa-tractor"></i>
+          </span>
+          <span class="menu-title">Trabajos</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
         <a class="nav-link" href="/jcs/Entregas_Stock ">
           <span class="menu-icon">
             <i class="mdi mdi-truck-delivery"></i>
@@ -114,12 +122,30 @@
           <span class="menu-title">Stock</span>
         </a>
       </li>
+      
       <li class="nav-item menu-items">
-        <a class="nav-link" href="/jcs/stock2 ">
+        <a class="nav-link" href="/jcs/UserListView ">
           <span class="menu-icon">
-            <i class="mdi mdi-dropbox"></i>
+            <i class="mdi mdi-account-box"></i>
           </span>
-          <span class="menu-title">Produccion</span>
+
+          <span class="menu-title">Usuarios</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/jcs/ListaEmpleado ">
+          <span class="menu-icon">
+            <i class="mdi mdi-account-multiple"></i>
+          </span>
+          <span class="menu-title">Empleados</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/jcs/auditoria ">
+          <span class="menu-icon">
+            <i class="mdi mdi-delete-sweep"></i>
+          </span>
+          <span class="menu-title">Auditoria</span>
         </a>
       </li>
       <!-- <li class="nav-item menu-items">

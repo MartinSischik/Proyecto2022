@@ -1,0 +1,77 @@
+{%extends 'templates/home.html'%}
+
+{% block content %}
+    <div class="page-header">
+      <h3 class="page-title"> Trabajos </h3>
+    </div>
+    
+    <div class="row">
+      
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Stock</h4>
+          <a type="button" href="" class="btn btn-outline-secondary btn-fw">Nuevo Stock</a>
+          <div class="row">
+            <div class="col-12">
+            <div class="text-secondary">
+              <div class="card-body table-responsive">  
+                    <table id="Tabladetalle" class="table" >
+                  <thead>
+                    <tr>
+                      <th>Id Trabajo</th>
+                      <th>Insumo</th>
+                      <th>Descripcion</th>
+                      <th>Cantidad </th>
+                      <th>Precio </th>
+                      <th>Subtotal </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for lista in listatabla1 %}
+                    <tr>
+                      <td> {{lista.trabajo_id}} </td>
+                      <td>{{lista.quimico.name}}</td>
+                      <td>{{lista.quimico.ingrediente}}</td>
+                      <td> {{lista.cantidad}}</td>
+                      <td> {{lista.precio}} ha.</td>
+                      <td>{{lista.subtotal}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                </tfoot>
+                  </table>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function(){
+        var tabla = $("#Tabladetalle").DataTable({
+                
+                "drawCallback":function(){
+                      //alert("La tabla se está recargando"); 
+                      var api = this.api();
+                      $(api.column(5).footer()).html(
+                          'Total: '+api.column(5, {page:'current'}).data().sum()+' usd'
+                      )
+                }
+        });
+    });
+    </script>
+{% endblock %}
+

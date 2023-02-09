@@ -57,6 +57,37 @@ class CargaQuimico(CreateView):
         return contexto
 
 
+class SumaQuimico(CreateView):
+    model = Quimico
+    form_class = SumaQuimicoForm
+    template_name = 'templates\CargaStock.html'
+    success_url = reverse_lazy('stock2')
+
+    @method_decorator(login_required)
+    @method_decorator(csrf_exempt)
+    # se necesita el def dipatch para poder verificar si esta iniciada la sesion
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        grano = Quimico.objects.get(id=request.POST.get('Nombre'))
+        costo = (grano.cantidad*grano.precio) + \
+            (int(request.POST.get('cantidad'))*int(request.POST.get('precio')))
+        print(costo)
+        grano.cantidad = int(grano.cantidad) + \
+            int(request.POST.get('cantidad'))
+        grano.precio = costo/grano.cantidad
+        grano.save()
+        return HttpResponseRedirect(self.success_url)
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto['page_title'] = 'Nuevo Stock '
+        contexto['accion'] = 'Crear'
+        return contexto
+
+
 class EditQuimico(UpdateView):
     model = Quimico
     form_class = QuimicoForm
@@ -468,7 +499,7 @@ class ListaCliente(ListView):
         return contexto
 
 
-class CargaCliente(IsSupperusserMixin, CreateView):
+class CargaCliente(CreateView):
     model = Cliente
     form_class = ClienteForm
     template_name = 'templates\CargaStock.html'

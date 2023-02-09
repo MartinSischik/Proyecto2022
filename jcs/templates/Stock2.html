@@ -6,61 +6,23 @@
     </div>
     
     <div class="row">
-      <!-- <div class="col-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Parcelas</h4>
-            <a type="button" href="{% url 'CargaParcela'  %}" class="btn btn-outline-secondary btn-fw">Nueva Parcela</a>
-            <div class="row">
-              <div class="col-12">
-                <div class="text-secondary">
-                  <div class="card-body table-responsive">  
-                        <table id="tabla1" class="table" >
-                      <thead>
-                        <tr>
-                          <th>Id</th>
-                          <th>Nombre </th>
-                          <th>Ubicacion </th>
-                          <th>Hectareas </th>
-                          <th>Trabbajos realizados</th>
-                          <th>Gastos </th>
-                          <th>Opciones </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for lista in listatabla4 %}
-                        <tr>
-                          <td> {{lista.id}} </td>
-                          <td>{{lista.nombre}}</td>
-                          <td>{{lista.ubicacion}}</td>
-                          <td> {{lista.hectareas}}</td>
-                          <td> {{lista.trabajos}}</td>
-                          <td> {{lista.gasto}}</td>
-                          <td>
-                            <a href="{% url 'EditParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="{% url 'DeleteParcela' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-solid fa-trash"></i></a>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                      </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <div class="col-lg-6 col-md-12">
+      <div class="col-lg-8 col-md-12">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Stock</h4>
-          <a type="button" href="{% url 'CargaQuimico'  %}" class="btn btn-outline-secondary btn-fw">Nuevo Stock</a>
+            <div class="row">
+              <div class="col-md-3">
+                <a type="button" href="{% url 'CargaQuimico'  %}" class="btn btn-outline-success btn-fw">Nuevo Stock</a>
+              </div>
+              <div class="col-md-4">
+                <a type="button" href="{% url 'SumaQuimico'  %}" class="btn btn-outline-primary btn-fw">Compra de Stock</a>
+              </div>
+            </div>
           <div class="row">
             <div class="col-12">
             <div class="text-secondary">
               <div class="card-body table-responsive">  
-                    <table id="tabla2" class="table" >
+                    <table id="Stock" class="table" >
                   <thead>
                     <tr>
                       <!-- <th>Id</th> -->
@@ -68,6 +30,7 @@
                       <th>Categoria </th>
                       <th>Droga </th>
                       <th>Cantidad</th>
+                      <th>Precio</th>
                       <!-- <th>Unidades </th> -->
                       <th>Opciones </th>
                     </tr>
@@ -80,6 +43,7 @@
                       <td>{{lista.categoria}}</td>
                       <td> {{lista.ingrediente}}</td>
                       <td> {{lista.cantidad}}{{lista.unidades}}</td>
+                      <td> {{lista.precio}}</td>
                       <!-- <td> </td> -->
                       <td>
                         <a href="{% url 'EditQuimico' lista.id %}" type="button" class="btn .btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
@@ -88,6 +52,17 @@
                     </tr>
                     {% endfor %}
                   </tbody>
+                  <tfoot>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+
+                    </tr>
+                  </tfoot>
                   </table>
               </div>
             </div>
@@ -138,7 +113,7 @@
       </div>
     </div> -->
     
-    <div class="col-lg-6 col-md-12">
+    <div class="col-lg-4 col-md-12">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Categoria de Stock</h4>
@@ -174,5 +149,34 @@
       </div>
     </div>
   </div>
+  <script>
+    $(document).ready(function(){
+        var tabla = $("#Stock").DataTable({
+                
+                "drawCallback":function(){
+                      //alert("La tabla se está recargando"); 
+                      var api = this.api();
+                      // $(api.column(6).footer()).html(
+                      //     'Total: '+api.column(6, {page:'current'}).data().sum()+' usd'
+                      // )
+                      // $(api.column(3).footer()).html(
+                      //     ''+api.column(3, {page:'current'}).data().sum()+' kg/ha'
+                      // )
+                      $(api.column(3).footer()).html(
+                          'Total: '+api.column(3, {page:'current'}).data().sum()+''
+                      )
+                },
+    //             "columnDefs": [
+    //   { targets : [ 4 ], data:  function ( row, type, val, meta ) {
+    //       str = parseInt(row[2],10) / parseInt(row[3],10)+' kg'
+    //       return str ;
+    //       }
+    //    } 
+    // ]  
+                
+        });
+    });
+    
+      </script>
 {% endblock %}
 

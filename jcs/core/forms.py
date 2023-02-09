@@ -87,9 +87,38 @@ class QuimicoForm (ModelForm):
                        'id': 'select3'
                        }
             ),
+        }
 
+
+class SumaQuimicoForm (ModelForm):
+
+    Nombre = ModelChoiceField(queryset=Quimico.objects.all(), widget=Select(attrs={
+        'class': 'form-control select2',
+        'style': 'width: 100%'
+    }))
+
+    class Meta:
+        model = Quimico
+        fields = '__all__'
+        labels = {
 
         }
+        widgets = {
+            'cantidad': TextInput(
+                attrs={'class': 'form-control',
+                       'placeholder': 'Cantidad',
+
+                       }
+            ),
+            'precio': NumberInput(
+                attrs={'class': 'form-control',
+                       'placeholder': 'precio',
+
+                       }
+            ),
+        }
+        exclude = ['procedencia',
+                   'unidades', 'ingrediente', 'categoria', 'name']
 
 
 class GranoForm (ModelForm):

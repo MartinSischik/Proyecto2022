@@ -111,7 +111,7 @@ class Quimico (models.Model):
     categoria = models.ForeignKey(
         CateQuimico, on_delete=models.CASCADE, null=True)
     ingrediente = models.CharField(
-        max_length=10, unique=True, verbose_name=' Descripcion ')
+        max_length=255, unique=True, verbose_name=' Descripcion ')
     cantidad = models.DecimalField(
         default=0.00, max_digits=12, decimal_places=2)
     unidades = models.ForeignKey(Unidades, on_delete=models.CASCADE, null=True)
@@ -141,7 +141,7 @@ class Meta:
 class Parcelas (models.Model):
     nombre = models.CharField(max_length=150, verbose_name=' Nombres ')
     ubicacion = models.CharField(
-        max_length=150, unique=True, verbose_name=' Ubicacion ')
+        max_length=150,  verbose_name=' Ubicacion ')
     hectareas = models.DecimalField(
         default=0.00, max_digits=12, decimal_places=2)
 

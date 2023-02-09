@@ -37,6 +37,7 @@ urlpatterns = [
     path('ErrorUsuario/', views.ErrorUsuario, name='ErrorUsuario'),
     # Agroquimicos
     path('CargaQuimico/add/', CargaQuimico.as_view(), name='CargaQuimico'),
+    path('SumaQuimico/add/', SumaQuimico.as_view(), name='SumaQuimico'),
     path('EditQuimico/edit/<int:pk>/', EditQuimico.as_view(), name='EditQuimico'),
     path('DeleteQuimico/delete/<int:pk>/',
          DeleteQuimico.as_view(), name='DeleteQuimico'),

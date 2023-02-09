@@ -40,7 +40,7 @@
                       <td>{{lista.parcela}}</td>
                       <td>{{lista.tipo}}</td>
                       <td> {{lista.empleado}}</td>
-                      <td> {{lista.hectareas}} ha.</td>
+                      <td> {{lista.hectareas}} </td>
                       <td>{{lista.descripcion}}</td>
                       <td>{{lista.gasto}}</td>
                       <td> {{lista.fecha}}</td>
@@ -88,9 +88,9 @@
                     // $(api.column(3).footer()).html(
                     //     ''+api.column(3, {page:'current'}).data().sum()+' kg/ha'
                     // )
-                    // $(api.column(4).footer()).html(
-                    //     ''+api.column(4, {page:'current'}).data().sum()+' kg/ha'
-                    // )
+                    $(api.column(4).footer()).html(
+                        'Total: '+api.column(4, {page:'current'}).data().sum()+' has.'
+                    )
               },
   //             "columnDefs": [
   //   { targets : [ 4 ], data:  function ( row, type, val, meta ) {

@@ -33,8 +33,8 @@
                       <td> {{lista.trabajo_id}} </td>
                       <td>{{lista.quimico.name}}</td>
                       <td>{{lista.quimico.ingrediente}}</td>
-                      <td> {{lista.cantidad}}</td>
-                      <td> {{lista.precio}} ha.</td>
+                      <td> {{lista.cantidad}} {{lista.quimico.unidades}}</td>
+                      <td> {{lista.precio}}</td>
                       <td>{{lista.subtotal}}</td>
                     </tr>
                     {% endfor %}

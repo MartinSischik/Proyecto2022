@@ -128,7 +128,7 @@ class CatQuimiCreateview(CreateView):
     model = CateQuimico
     form_class = CateQuimicoForm
     template_name = 'templates\CargaStock.html'
-    success_url = reverse_lazy('inicio')
+    success_url = reverse_lazy('stock2')
 
     @method_decorator(login_required)
     # se necesita el def dipatch para poder verificar si esta iniciada la sesion
@@ -723,6 +723,7 @@ class DeleteProduccion(DeleteView):
         contexto = super().get_context_data(**kwargs)
         contexto['page_title'] = 'Eliminar Produccion'
         contexto['accion'] = 'Eliminar'
+        contexto['nombre'] = 'esta produccion?'
         contexto['list_url'] = reverse_lazy('inicio')
         return contexto
 

@@ -22,9 +22,9 @@
 
 
                 <div class="card-body">
-                    <button type="button" class="btn btn-danger btn-xs btn-flat btnRemoveAll">
+                    <!-- <button type="button" class="btn btn-danger btn-xs btn-flat btnRemoveAll">
                         <i class="fas fa-trash"></i> Eliminar todos mis items
-                    </button>
+                    </button> -->
                     <!-- <hr> -->
                     <table id="tblProducts" class="table">
                         <thead>
@@ -272,21 +272,20 @@
             })
 
 
-        $('.btnRemoveAll').on('click', function () {
-            var cosa = '¿Estas seguro de eliminar el producto de tu detalle?'
-            if (vents.items.products.length === 0) return false;
-            message_error(cosa)
-        });
+        // $('.btnRemoveAll').on('click', function () {
+        //     var cosa = '¿Estas seguro de eliminar el producto de tu detalle?'
+        //     if (vents.items.products.length === 0) return false;
+        //     message_error(cosa)
+        //     vents.list();
+        // });
 
 
         $('#tblProducts tbody')
             .on('click', 'a[rel="remove"]', function () {
                 var tr = tblProducts.cell($(this).closest('td, li')).index();
+                vents.items.products.splice(tr.row, 1);
+                vents.list();
 
-                alert_action('Notificación', '¿Estas seguro de eliminar el producto de tu detalle?', function () {
-                    vents.items.products.splice(tr.row, 1);
-                    vents.list();
-                });
 
             })
 

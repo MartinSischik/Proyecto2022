@@ -21,7 +21,7 @@ class SaleCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Create
     form_class = TrabajoForm
     template_name = 'templates/Trabajo.html'
     success_url = reverse_lazy('ListaTrabajo')
-    nourl = reverse_lazy('inicio')
+    nourl = reverse_lazy('ListaTrabajo')
     url_redirect = success_url
 
     @method_decorator(csrf_exempt)
@@ -78,7 +78,7 @@ class SaleCreateView(LoginRequiredMixin, ValidatePermissionRequiredMixin, Create
         context = super().get_context_data(**kwargs)
         context['title'] = 'Creación de un trabajo'
         context['entity'] = 'Ventas'
-        context['list_url'] = self.nourl
+        context['list_url'] = 'ListaTrabajo'
         context['action'] = 'add'
         context['det'] = []
         return context

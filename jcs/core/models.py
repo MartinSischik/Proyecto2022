@@ -4,7 +4,7 @@ from django.forms import model_to_dict
 from crum import get_current_user
 
 # Create your models here.
-from auditlog.registry import auditlog
+from auditlog.registry import*
 
 
 class Type (models.Model):
@@ -284,6 +284,7 @@ class Entregas (models.Model):
         ordering = ['id']
 
 
+
 class Produccion (models.Model):
     parcela = models.ForeignKey(Parcelas, on_delete=models.CASCADE, null=True)
     producto = models.ForeignKey(Quimico, on_delete=models.CASCADE, null=True)
@@ -291,7 +292,7 @@ class Produccion (models.Model):
     fecha = models.DateField(default=datetime.now)
 
     def __str__(self):
-        return self.parcela
+        return self.parcela.nombre
 
     class Meta:
         verbose_name = 'Produccion'
